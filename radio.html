@@ -33,6 +33,15 @@
     .show p { margin:0 0 10px; color:#b3b3b3; font-size:14px; }
 
     footer { border-top:1px solid #2a2a2a; margin-top:36px; padding:18px 0; color:#b3b3b3; font-size:12px; }
+
+    .filter-btn {
+  background:#121212; border:1px solid #2a2a2a; color:#f3f3f3;
+  padding:6px 10px; border-radius:999px; font-size:12px; cursor:pointer;
+}
+.filter-btn:hover { border-color:#3a3a3a; }
+.filter-btn.is-active { background:#fff; color:#111; border-color:#e6e6e6; }
+.hidden { display:none !important; }
+    
   </style>
 </head>
 <body>
@@ -50,6 +59,14 @@
         <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Signal Notes</a>
       </nav>
     </header>
+   
+    <div class="filters" style="display:flex;align-items:center;gap:8px;margin-top:18px;">
+  <strong style="font-size:14px;color:#b3b3b3;">Filter:</strong>
+  <button class="filter-btn is-active" data-filter="">All</button>
+  <button class="filter-btn" data-filter="lot-radio">Lot Radio</button>
+  <button class="filter-btn" data-filter="guest-mix">Guest Mix</button>
+  <button class="filter-btn" data-filter="studio">Studio</button>
+</div>
 
     <main>
       <h1>Featured show</h1>
