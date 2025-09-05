@@ -41,6 +41,13 @@
 .filter-btn:hover { border-color:#3a3a3a; }
 .filter-btn.is-active { background:#fff; color:#111; border-color:#e6e6e6; }
 .hidden { display:none !important; }
+
+    .btn {
+  display:inline-block; background:#fff; color:#111; padding:10px 14px;
+  border-radius:12px; font-size:14px; font-weight:600; text-decoration:none;
+  border:1px solid #e6e6e6;
+}
+.btn:hover { filter:brightness(0.96); }
     
   </style>
 </head>
@@ -79,6 +86,10 @@
     <main>
       <h1>Featured show</h1>
       <p class="muted">Your latest set at the top. Swap the title/links each time you post a new one.</p>
+      <div class="playlist-cta" style="margin:12px 0 18px; display:flex; gap:10px; flex-wrap:wrap;">
+  <a class="btn" href="https://soundcloud.com/efmplus/sets/efm-radio" target="_blank" rel="noopener">All on SoundCloud</a>
+  <a class="btn" href="https://www.youtube.com/playlist?list=PLx2FKwyN8ExD4aL7sIL0xsAcdqOI9A3cJ" target="_blank" rel="noopener">All on YouTube</a>
+</div>
       <div class="featured" >
         <h2>Lot Radio — August 2025</h2>
         <p class="meta">Recorded live in Brooklyn. Textures, pulses, and pressure.</p>
