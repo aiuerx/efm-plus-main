@@ -5,92 +5,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>EFM Radio</title>
   <meta name="description" content="Radio shows, mixes, and archives from EFM." />
+  <meta name="theme-color" content="#0a0a0a" />
   <style>
-    body { margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial; background:#0b0b0b; color:#f3f3f3; }
+    :root { --bg:#0b0b0b; --fg:#f3f3f3; --muted:#b3b3b3; --card:#121212; --border:#2a2a2a; }
+    * { box-sizing: border-box; }
+    html, body { height:100%; }
+    body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--fg); }
     a { color:#0f62fe; text-decoration:none; }
     a:hover { text-decoration:underline; }
-    .wrap { max-width:960px; margin:0 auto; padding:24px; }
-    header { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid #2a2a2a; position:sticky; top:0; backdrop-filter:saturate(120%) blur(6px); background:rgba(11,11,11,0.7); }
+
+    .wrap { max-width:1100px; margin:0 auto; padding:24px; }
+
+    /* Header (match landing) */
+    header {
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:18px 0; border-bottom:1px solid var(--border);
+      position:sticky; top:0; backdrop-filter:saturate(120%) blur(6px); background:rgba(11,11,11,0.7);
+    }
     .brand { display:flex; align-items:center; gap:12px; }
-    .logo { height:38px; width:38px; display:grid; place-items:center; border:1px solid #2a2a2a; border-radius:12px; font-weight:600; }
-    nav a { color:#b3b3b3; margin-left:16px; font-size:14px; }
-    nav a:hover { color:#fff; }
+    .site-name { font-weight:700; font-size:20px; letter-spacing:.02em; line-height:1; }
+    nav a { color:var(--muted); margin-left:16px; font-size:14px; }
+    nav a:hover { color:var(--fg); }
 
+    /* Page intro */
     h1 { font-size:32px; margin:16px 0 8px; }
-    p.muted { color:#b3b3b3; margin:0; }
+    p.muted { color:var(--muted); margin:0; }
 
-    /* Featured */
-    .featured { margin-top:20px; background:#121212; border:1px solid #2a2a2a; border-radius:16px; padding:18px; }
-    .featured h2 { margin:0 0 8px; font-size:20px; }
-    .featured .meta { color:#b3b3b3; font-size:14px; margin:0 0 10px; }
-    .links a { margin-right:12px; font-size:14px; }
-
-    /* Year sections */
-    .year { margin:28px 0 10px; font-size:14px; letter-spacing:0.06em; text-transform:uppercase; color:#b3b3b3; }
-    .show-list { display:grid; gap:14px; }
-    .show { background:#121212; border:1px solid #2a2a2a; border-radius:12px; padding:16px; }
-    .show h3 { margin:0 0 6px; font-size:16px; }
-    .show p { margin:0 0 10px; color:#b3b3b3; font-size:14px; }
-
-    footer { border-top:1px solid #2a2a2a; margin-top:36px; padding:18px 0; color:#b3b3b3; font-size:12px; }
-
-    .filter-btn {
-  background:#121212; border:1px solid #2a2a2a; color:#f3f3f3;
-  padding:6px 10px; border-radius:999px; font-size:12px; cursor:pointer;
-}
-.filter-btn:hover { border-color:#3a3a3a; }
-.filter-btn.is-active { background:#fff; color:#111; border-color:#e6e6e6; }
-.hidden { display:none !important; }
-
+    /* CTA buttons */
     .btn {
-  display:inline-block; background:#fff; color:#111; padding:10px 14px;
-  border-radius:12px; font-size:14px; font-weight:600; text-decoration:none;
-  border:1px solid #e6e6e6;
-}
-.btn:hover { filter:brightness(0.96); }
+      display:inline-block; background:#fff; color:#111; padding:10px 14px;
+      border-radius:12px; font-size:14px; font-weight:600; text-decoration:none;
+      border:1px solid #e6e6e6; transition: filter .15s ease, transform .02s;
+    }
+    .btn:hover { filter:brightness(.96); transform:translateY(-1px); }
 
+    /* Filters + sort */
+    .filters { display:flex; align-items:center; gap:8px; margin-top:18px; flex-wrap:wrap; }
+    .filter-btn {
+      background:#121212; border:1px solid #2a2a2a; color:#f3f3f3;
+      padding:6px 10px; border-radius:999px; font-size:12px; cursor:pointer;
+      transition:border-color .15s ease, background-color .15s ease;
+    }
+    .filter-btn:hover { border-color:#3a3a3a; }
+    .filter-btn.is-active { background:#fff; color:#111; border-color:#e6e6e6; }
+    .sort { margin-top:10px; }
+    #sortOrder { background:#121212; border:1px solid #2a2a2a; color:#f3f3f3; border-radius:8px; padding:6px 8px; font-size:12px; }
+
+    /* Featured + lists */
+    .featured {
+      margin-top:20px; background:#121212; border:1px solid #2a2a2a; border-radius:16px; padding:18px;
+      transition:border-color .2s ease, background-color .2s ease, transform .02s;
+    }
+    .featured:hover { border-color:#3a3a3a; background:#151515; transform:translateY(-1px); }
+    .featured h2 { margin:0 0 8px; font-size:20px; }
+    .featured .meta { color:var(--muted); font-size:14px; margin:0 0 10px; }
+    .links a { margin-right:12px; font-size:14px; }
+    .links a:hover { text-decoration:underline; opacity:.9; }
+
+    .year { margin:28px 0 10px; font-size:14px; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); }
+    .show-list { display:grid; gap:14px; }
+    .show {
+      background:#121212; border:1px solid #2a2a2a; border-radius:12px; padding:16px;
+      transition:border-color .2s ease, background-color .2s ease, transform .02s;
+    }
+    .show:hover { border-color:#3a3a3a; background:#151515; transform:translateY(-1px); }
+    .show h3 { margin:0 0 6px; font-size:16px; }
+    .show p { margin:0 0 10px; color:var(--muted); font-size:14px; }
+
+    /* Footer */
+    footer { border-top:1px solid var(--border); margin-top:36px; padding:18px 0; color:var(--muted); font-size:12px; }
+    .hidden { display:none !important; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <div class="brand">
-        <div class="logo">EFM</div>
-        <div>
-          <div style="font-weight:700;">EFM Radio</div>
-          <div style="color:#b3b3b3; font-size:12px;">Mixes & broadcasts</div>
-        </div>
+        <div class="site-name">EFM</div>
       </div>
       <nav>
         <a href="/">Home</a>
         <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Signal Notes</a>
+        <a href="/#subscribe">Subscribe</a>
       </nav>
     </header>
-   
-    <div class="filters" style="display:flex;align-items:center;gap:8px;margin-top:18px;">
-  <strong style="font-size:14px;color:#b3b3b3;">Filter:</strong>
-  <button class="filter-btn is-active" data-filter="">All</button>
-  <button class="filter-btn" data-filter="lot-radio">Lot Radio</button>
-  <button class="filter-btn" data-filter="guest-mix">Guest Mix</button>
-  <button class="filter-btn" data-filter="studio">Studio</button>
-</div>
-
-    <div class="sort" style="margin-top:10px;">
-  <label for="sortOrder" style="font-size:12px;color:#b3b3b3;margin-right:8px;">Sort:</label>
-  <select id="sortOrder" style="background:#121212;border:1px solid #2a2a2a;color:#f3f3f3;border-radius:8px;padding:6px 8px;font-size:12px;">
-    <option value="newest" selected>Newest first</option>
-    <option value="oldest">Oldest first</option>
-  </select>
-</div>
 
     <main>
       <h1>Featured show</h1>
       <p class="muted">Your latest set at the top. Swap the title/links each time you post a new one.</p>
+
+      <!-- Playlist CTAs -->
       <div class="playlist-cta" style="margin:12px 0 18px; display:flex; gap:10px; flex-wrap:wrap;">
-  <a class="btn" href="https://soundcloud.com/efmplus/sets/efm-radio" target="_blank" rel="noopener">All on SoundCloud</a>
-  <a class="btn" href="https://www.youtube.com/playlist?list=PLx2FKwyN8ExD4aL7sIL0xsAcdqOI9A3cJ" target="_blank" rel="noopener">All on YouTube</a>
-</div>
-      <div class="featured" >
+        <a class="btn" href="https://soundcloud.com/YOUR_HANDLE/sets/YOUR_PLAYLIST_SLUG" target="_blank" rel="noopener">All on SoundCloud</a>
+        <a class="btn" href="https://www.youtube.com/playlist?list=YOUR_YT_PLAYLIST_ID" target="_blank" rel="noopener">All on YouTube</a>
+      </div>
+
+      <!-- Featured card -->
+      <div class="featured">
         <h2>Lot Radio — August 2025</h2>
         <p class="meta">Recorded live in Brooklyn. Textures, pulses, and pressure.</p>
         <div class="links">
@@ -99,9 +110,28 @@
         </div>
       </div>
 
+      <!-- Filters -->
+      <div class="filters">
+        <strong style="font-size:14px;color:#b3b3b3;">Filter:</strong>
+        <button class="filter-btn is-active" data-filter="">All</button>
+        <button class="filter-btn" data-filter="lot-radio">Lot Radio</button>
+        <button class="filter-btn" data-filter="guest-mix">Guest Mix</button>
+        <button class="filter-btn" data-filter="studio">Studio</button>
+      </div>
+
+      <!-- Sort -->
+      <div class="sort">
+        <label for="sortOrder" style="font-size:12px;color:#b3b3b3;margin-right:8px;">Sort:</label>
+        <select id="sortOrder">
+          <option value="newest" selected>Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+      </div>
+
+      <!-- 2025 -->
       <h2 class="year">2025</h2>
       <div class="show-list">
-        <div class="show" data-tags="guest-mix" data-date="2025-07-10">
+        <div class="show" data-tags="lot-radio" data-date="2025-07-10">
           <h3>Lot Radio — July 2025</h3>
           <p>Deep set exploring synthesis and texture.</p>
           <div class="links">
@@ -109,7 +139,7 @@
             <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-        <div class="show" data-tags="studio" data-date="2025-06-10">
+        <div class="show" data-tags="guest-mix" data-date="2025-06-02">
           <h3>Guest Mix — June 2025</h3>
           <p>Guest slot, late-night, slower tempos.</p>
           <div class="links">
@@ -119,9 +149,10 @@
         </div>
       </div>
 
+      <!-- 2024 -->
       <h2 class="year">2024</h2>
       <div class="show-list">
-        <div class="show" data-tags="lot-radio studio" data-date="2024-12-10">
+        <div class="show" data-tags="lot-radio studio" data-date="2024-12-12">
           <h3>Lot Radio — December 2024</h3>
           <p>Industrial accents + melodic negatives.</p>
           <div class="links">
@@ -136,102 +167,100 @@
       © <span id="year"></span> EFM. <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener" style="color:#b3b3b3;">Signal Notes</a>
     </footer>
   </div>
- <script>
-  // year stamp
-  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // --- URL state: allowed params
-  const ALLOWED_TAGS  = ["", "lot-radio", "guest-mix", "studio"]; // "" = All
-  const ALLOWED_SORTS = ["newest", "oldest"];
+  <!-- Filtering + Sorting + Shareable URL -->
+  <script>
+    // year stamp
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  function getParam(name, fallback) {
-    const v = new URLSearchParams(location.search).get(name) || fallback;
-    return v;
-  }
+    // --- URL state: allowed params
+    const ALLOWED_TAGS  = ["", "lot-radio", "guest-mix", "studio"]; // "" = All
+    const ALLOWED_SORTS = ["newest", "oldest"];
 
-  function setParams(params) {
-    const u = new URL(location);
-    Object.entries(params).forEach(([k, v]) => {
-      if (v === "" || v == null) u.searchParams.delete(k);
-      else u.searchParams.set(k, v);
-    });
-    history.replaceState(null, "", u);
-  }
-
-  // cache refs
-  const buttons = Array.from(document.querySelectorAll('.filter-btn'));
-  const years   = Array.from(document.querySelectorAll('.year'));
-  const lists   = Array.from(document.querySelectorAll('.show-list'));
-  const sortSel = document.getElementById('sortOrder');
-  const shows   = () => Array.from(document.querySelectorAll('.show-list .show'));
-
-  // FILTER
-  function applyFilter(tag) {
-    buttons.forEach(b => b.classList.toggle('is-active', (b.dataset.filter || '') === tag));
-    shows().forEach(card => {
-      const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
-      const match = !tag || tags.includes(tag);
-      card.classList.toggle('hidden', !match);
-    });
-    lists.forEach((list, i) => {
-      const visible = list.querySelectorAll('.show:not(.hidden)').length > 0;
-      years[i].classList.toggle('hidden', !visible);
-      list.classList.toggle('hidden', !visible);
-    });
-  }
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tag = btn.dataset.filter || "";
-      applyFilter(tag);
-      setParams({ tag, sort: sortSel?.value || "newest" });
-    });
-  });
-
-  // SORT
-  function sortShows(order) {
-    const dir = order === 'oldest' ? 1 : -1;
-    lists.forEach(list => {
-      const cards = Array.from(list.querySelectorAll('.show'));
-      cards.sort((a, b) => {
-        const da = new Date(a.getAttribute('data-date') || 0).getTime();
-        const db = new Date(b.getAttribute('data-date') || 0).getTime();
-        return (db - da) * (dir === -1 ? 1 : -1);
+    function getParam(name, fallback) {
+      const v = new URLSearchParams(location.search).get(name) || fallback;
+      return v;
+    }
+    function setParams(params) {
+      const u = new URL(location);
+      Object.entries(params).forEach(([k, v]) => {
+        if (v === "" || v == null) u.searchParams.delete(k);
+        else u.searchParams.set(k, v);
       });
-      cards.forEach(c => list.appendChild(c));
+      history.replaceState(null, "", u);
+    }
+
+    // cache refs
+    const buttons = Array.from(document.querySelectorAll('.filter-btn'));
+    const years   = Array.from(document.querySelectorAll('.year'));
+    const lists   = Array.from(document.querySelectorAll('.show-list'));
+    const sortSel = document.getElementById('sortOrder');
+    const shows   = () => Array.from(document.querySelectorAll('.show-list .show'));
+
+    // FILTER
+    function applyFilter(tag) {
+      buttons.forEach(b => b.classList.toggle('is-active', (b.dataset.filter || '') === tag));
+      shows().forEach(card => {
+        const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
+        const match = !tag || tags.includes(tag);
+        card.classList.toggle('hidden', !match);
+      });
+      lists.forEach((list, i) => {
+        const visible = list.querySelectorAll('.show:not(.hidden)').length > 0;
+        years[i].classList.toggle('hidden', !visible);
+        list.classList.toggle('hidden', !visible);
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tag = btn.dataset.filter || "";
+        applyFilter(tag);
+        setParams({ tag, sort: sortSel?.value || "newest" });
+      });
     });
-    const container = lists[0].parentElement;
-    const groups = years.map((y, i) => ({ yearEl: y, listEl: lists[i] }));
-    groups.sort((g1, g2) => {
-      const top1 = g1.listEl.querySelector('.show');
-      const top2 = g2.listEl.querySelector('.show');
-      const d1 = top1 ? new Date(top1.getAttribute('data-date') || 0).getTime() : 0;
-      const d2 = top2 ? new Date(top2.getAttribute('data-date') || 0).getTime() : 0;
-      return (d2 - d1) * (dir === -1 ? 1 : -1);
+
+    // SORT
+    function sortShows(order) {
+      const dir = order === 'oldest' ? 1 : -1;
+      lists.forEach(list => {
+        const cards = Array.from(list.querySelectorAll('.show'));
+        cards.sort((a, b) => {
+          const da = new Date(a.getAttribute('data-date') || 0).getTime();
+          const db = new Date(b.getAttribute('data-date') || 0).getTime();
+          return (db - da) * (dir === -1 ? 1 : -1);
+        });
+        cards.forEach(c => list.appendChild(c));
+      });
+      const container = lists[0].parentElement;
+      const groups = years.map((y, i) => ({ yearEl: y, listEl: lists[i] }));
+      groups.sort((g1, g2) => {
+        const top1 = g1.listEl.querySelector('.show');
+        const top2 = g2.listEl.querySelector('.show');
+        const d1 = top1 ? new Date(top1.getAttribute('data-date') || 0).getTime() : 0;
+        const d2 = top2 ? new Date(top2.getAttribute('data-date') || 0).getTime() : 0;
+        return (d2 - d1) * (dir === -1 ? 1 : -1);
+      });
+      groups.forEach(g => { container.appendChild(g.yearEl); container.appendChild(g.listEl); });
+    }
+
+    sortSel?.addEventListener('change', () => {
+      const order = sortSel.value;
+      sortShows(order);
+      const activeBtn = document.querySelector('.filter-btn.is-active');
+      const tag = activeBtn ? (activeBtn.getAttribute('data-filter') || '') : '';
+      applyFilter(tag);
+      setParams({ tag, sort: order });
     });
-    groups.forEach(g => { container.appendChild(g.yearEl); container.appendChild(g.listEl); });
-  }
 
-  sortSel?.addEventListener('change', () => {
-    const order = sortSel.value;
-    sortShows(order);
-    const activeBtn = document.querySelector('.filter-btn.is-active');
-    const tag = activeBtn ? (activeBtn.getAttribute('data-filter') || '') : '';
-    applyFilter(tag);
-    setParams({ tag, sort: order });
-  });
+    // INITIAL: read URL params
+    const initTag  = ALLOWED_TAGS.includes(getParam("tag", ""))   ? getParam("tag", "")   : "";
+    const initSort = ALLOWED_SORTS.includes(getParam("sort","")) ? getParam("sort","newest") : "newest";
 
-  // INITIAL: read URL params
-  const initTag  = ALLOWED_TAGS.includes(getParam("tag", ""))   ? getParam("tag", "")   : "";
-  const initSort = ALLOWED_SORTS.includes(getParam("sort","")) ? getParam("sort","newest") : "newest";
-
-  if (sortSel) sortSel.value = initSort;
-  sortShows(initSort);
-  applyFilter(initTag);
-  setParams({ tag: initTag, sort: initSort });
-</script>
-
-
-  
+    if (sortSel) sortSel.value = initSort;
+    sortShows(initSort);
+    applyFilter(initTag);
+    setParams({ tag: initTag, sort: initSort });
+  </script>
 </body>
 </html>
