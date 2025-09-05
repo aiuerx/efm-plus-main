@@ -5,45 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>EFM Radio</title>
   <meta name="description" content="Radio shows, mixes, and archives from EFM." />
-  <link rel="stylesheet" href="styles.css" />
   <style>
-    body { margin:0; font-family:system-ui,sans-serif; background:#0b0b0b; color:#f3f3f3; }
+    body { margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial; background:#0b0b0b; color:#f3f3f3; }
+    a { color:#0f62fe; text-decoration:none; }
+    a:hover { text-decoration:underline; }
     .wrap { max-width:960px; margin:0 auto; padding:24px; }
-    h1 { font-size:32px; margin-bottom:12px; }
-    .show-list { display:grid; gap:16px; margin-top:24px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid #2a2a2a; position:sticky; top:0; backdrop-filter:saturate(120%) blur(6px); background:rgba(11,11,11,0.7); }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { height:38px; width:38px; display:grid; place-items:center; border:1px solid #2a2a2a; border-radius:12px; font-weight:600; }
+    nav a { color:#b3b3b3; margin-left:16px; font-size:14px; }
+    nav a:hover { color:#fff; }
+
+    h1 { font-size:32px; margin:16px 0 8px; }
+    p.muted { color:#b3b3b3; margin:0; }
+
+    /* Featured */
+    .featured { margin-top:20px; background:#121212; border:1px solid #2a2a2a; border-radius:16px; padding:18px; }
+    .featured h2 { margin:0 0 8px; font-size:20px; }
+    .featured .meta { color:#b3b3b3; font-size:14px; margin:0 0 10px; }
+    .links a { margin-right:12px; font-size:14px; }
+
+    /* Year sections */
+    .year { margin:28px 0 10px; font-size:14px; letter-spacing:0.06em; text-transform:uppercase; color:#b3b3b3; }
+    .show-list { display:grid; gap:14px; }
     .show { background:#121212; border:1px solid #2a2a2a; border-radius:12px; padding:16px; }
-    .show h2 { font-size:18px; margin:0 0 8px; }
-    .show p { margin:0 0 12px; color:#b3b3b3; font-size:14px; }
-    .links a { margin-right:12px; color:#0f62fe; text-decoration:none; font-size:14px; }
-    .links a:hover { text-decoration:underline; }
+    .show h3 { margin:0 0 6px; font-size:16px; }
+    .show p { margin:0 0 10px; color:#b3b3b3; font-size:14px; }
+
+    footer { border-top:1px solid #2a2a2a; margin-top:36px; padding:18px 0; color:#b3b3b3; font-size:12px; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>EFM Radio</h1>
-    <p>Mixes and broadcasts — listen via SoundCloud or YouTube.</p>
+    <header>
+      <div class="brand">
+        <div class="logo">EFM</div>
+        <div>
+          <div style="font-weight:700;">EFM Radio</div>
+          <div style="color:#b3b3b3; font-size:12px;">Mixes & broadcasts</div>
+        </div>
+      </div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Signal Notes</a>
+      </nav>
+    </header>
 
-    <div class="show-list">
-      <div class="show">
+    <main>
+      <h1>Featured show</h1>
+      <p class="muted">Your latest set at the top. Swap the title/links each time you post a new one.</p>
+      <div class="featured">
         <h2>Lot Radio — August 2025</h2>
-        <p>Recorded live at The Lot Radio, Brooklyn.</p>
+        <p class="meta">Recorded live in Brooklyn. Textures, pulses, and pressure.</p>
         <div class="links">
-          <a href="https://soundcloud.com/YOUR_HANDLE/lot-radio-aug-2025" target="_blank">SoundCloud</a>
-          <a href="https://youtube.com/..." target="_blank">YouTube</a>
+          <a href="https://soundcloud.com/YOUR_HANDLE/lot-radio-aug-2025" target="_blank" rel="noopener">SoundCloud</a>
+          <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
         </div>
       </div>
 
-      <div class="show">
-        <h2>Lot Radio — July 2025</h2>
-        <p>Deep set exploring synthesis and texture.</p>
-        <div class="links">
-          <a href="https://soundcloud.com/YOUR_HANDLE/lot-radio-july-2025" target="_blank">SoundCloud</a>
-          <a href="https://youtube.com/..." target="_blank">YouTube</a>
+      <h2 class="year">2025</h2>
+      <div class="show-list">
+        <div class="show">
+          <h3>Lot Radio — July 2025</h3>
+          <p>Deep set exploring synthesis and texture.</p>
+          <div class="links">
+            <a href="https://soundcloud.com/YOUR_HANDLE/lot-radio-july-2025" target="_blank" rel="noopener">SoundCloud</a>
+            <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+          </div>
+        </div>
+        <div class="show">
+          <h3>Guest Mix — June 2025</h3>
+          <p>Guest slot, late-night, slower tempos.</p>
+          <div class="links">
+            <a href="https://soundcloud.com/YOUR_HANDLE/guest-mix-june-2025" target="_blank" rel="noopener">SoundCloud</a>
+            <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+          </div>
         </div>
       </div>
 
-      <!-- Add more shows here -->
-    </div>
+      <h2 class="year">2024</h2>
+      <div class="show-list">
+        <div class="show">
+          <h3>Lot Radio — December 2024</h3>
+          <p>Industrial accents + melodic negatives.</p>
+          <div class="links">
+            <a href="https://soundcloud.com/YOUR_HANDLE/lot-radio-dec-2024" target="_blank" rel="noopener">SoundCloud</a>
+            <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      © <span id="year"></span> EFM. <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener" style="color:#b3b3b3;">Signal Notes</a>
+    </footer>
   </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
