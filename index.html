@@ -42,8 +42,19 @@
     .subscribe p { margin:0 0 12px; color:var(--muted); font-size:14px; }
     form { display:flex; gap:10px; flex-wrap:wrap; }
     input[type=email] { flex:1; min-width:220px; background:#0e0e0e; color:#f3f3f3; border:1px solid var(--border); padding:10px 12px; border-radius:12px; font-size:14px; }
-    button[type=submit] { background:#0f62fe; color:white; border:none; padding:10px 14px; border-radius:12px; font-size:14px; font-weight:600; cursor:pointer; }
-    button[type=submit]:hover { filter:brightness(1.05); }
+    button[type=submit] { 
+  background:#fff;  /* ← white button */
+  color:#111;       /* ← black text */
+  border:none; 
+  padding:10px 14px; 
+  border-radius:12px; 
+  font-size:14px; 
+  font-weight:600; 
+  cursor:pointer; 
+}
+/* remove hover effect */
+button[type=submit]:hover { filter:none; }
+
 
     /* Footer */
     footer { border-top:1px solid var(--border); margin-top:40px; padding:18px 0; color:var(--muted); font-size:12px; }
@@ -76,7 +87,6 @@
         <p class="tagline">Musings on synthesis, sound design, and electronic tools.</p>
         <div class="cta">
           <a class="btn" href="https://signalnotes.efm.plus">Read the archive</a>
-          <a class="btn" href="#subscribe">Subscribe</a>
         </div>
       </div>
       <!-- Right column intentionally empty for spacious feel (mirrors W&M vibe) -->
