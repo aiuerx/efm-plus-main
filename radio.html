@@ -71,7 +71,7 @@
     <main>
       <h1>Featured show</h1>
       <p class="muted">Your latest set at the top. Swap the title/links each time you post a new one.</p>
-      <div class="featured">
+      <div class="featured" >
         <h2>Lot Radio — August 2025</h2>
         <p class="meta">Recorded live in Brooklyn. Textures, pulses, and pressure.</p>
         <div class="links">
@@ -82,7 +82,7 @@
 
       <h2 class="year">2025</h2>
       <div class="show-list">
-        <div class="show">
+        <div class="show" data-tags="guest-mix">
           <h3>Lot Radio — July 2025</h3>
           <p>Deep set exploring synthesis and texture.</p>
           <div class="links">
@@ -90,7 +90,7 @@
             <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-        <div class="show">
+        <div class="show" data-tags="studio">
           <h3>Guest Mix — June 2025</h3>
           <p>Guest slot, late-night, slower tempos.</p>
           <div class="links">
@@ -102,7 +102,7 @@
 
       <h2 class="year">2024</h2>
       <div class="show-list">
-        <div class="show">
+        <div class="show" data-tags="lot-radio studio">
           <h3>Lot Radio — December 2024</h3>
           <p>Industrial accents + melodic negatives.</p>
           <div class="links">
@@ -117,6 +117,42 @@
       © <span id="year"></span> EFM. <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener" style="color:#b3b3b3;">Signal Notes</a>
     </footer>
   </div>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+  // year stamp
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // filtering
+  const buttons = Array.from(document.querySelectorAll('.filter-btn'));
+  const years   = Array.from(document.querySelectorAll('.year'));
+  const lists   = Array.from(document.querySelectorAll('.show-list'));
+  const shows   = () => Array.from(document.querySelectorAll('.show-list .show'));
+
+  function applyFilter(tag) {
+    // toggle active button
+    buttons.forEach(b => b.classList.toggle('is-active', b.dataset.filter === tag));
+
+    // show/hide shows
+    shows().forEach(card => {
+      const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
+      const match = !tag || tags.includes(tag);
+      card.classList.toggle('hidden', !match);
+    });
+
+    // hide year headings with no visible shows
+    lists.forEach((list, i) => {
+      const visible = list.querySelectorAll('.show:not(.hidden)').length > 0;
+      years[i].classList.toggle('hidden', !visible);
+      list.classList.toggle('hidden', !visible);
+    });
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter || ''));
+  });
+
+  // initial pass (no filter)
+  applyFilter('');
+</script>
+  
 </body>
 </html>
