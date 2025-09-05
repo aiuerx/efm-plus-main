@@ -23,7 +23,12 @@
       padding:18px 0; border-bottom:1px solid var(--border);
       position:sticky; top:0; backdrop-filter:saturate(120%) blur(6px); background:rgba(11,11,11,0.7); }
     .brand { display:flex; align-items:center; gap:12px; }
-    .logo { height:38px; width:38px; display:grid; place-items:center; border:1px solid var(--border); border-radius:12px; font-weight:700; letter-spacing:.02em; }
+   .site-name {
+  font-weight:700;
+  font-size:18px;   /* try 20px if you want it bigger */
+  letter-spacing:.02em;
+  line-height:1;    /* keeps the header height unchanged */
+}
     nav a { color:var(--muted); text-decoration:none; margin-left:16px; font-size:14px; }
     nav a:hover { color:var(--fg); }
 
@@ -69,8 +74,8 @@ button[type=submit]:hover { filter:none; }
   <div class="wrap">
     <header>
       <div class="brand">
-        <div class="logo">EFM</div>
-        <div style="font-weight:700;">EFM</div>
+  <div class="site-name">EFM</div>
+</div>
       </div>
       <nav>
         <a href="https://signalnotes.efm.plus">Signal Notes</a>
