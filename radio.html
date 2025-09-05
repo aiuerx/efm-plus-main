@@ -93,7 +93,27 @@
     html {
   scroll-behavior: smooth;
 }
-  
+
+    #backToTop {
+  display:none;
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  background:#fff;
+  color:#111;
+  border:none;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  font-size:18px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  transition:opacity .2s ease;
+  z-index:50;
+}
+#backToTop:hover { opacity:0.85; }
+
   </style>
 </head>
 <body>
