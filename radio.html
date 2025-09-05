@@ -68,6 +68,14 @@
   <button class="filter-btn" data-filter="studio">Studio</button>
 </div>
 
+    <div class="sort" style="margin-top:10px;">
+  <label for="sortOrder" style="font-size:12px;color:#b3b3b3;margin-right:8px;">Sort:</label>
+  <select id="sortOrder" style="background:#121212;border:1px solid #2a2a2a;color:#f3f3f3;border-radius:8px;padding:6px 8px;font-size:12px;">
+    <option value="newest" selected>Newest first</option>
+    <option value="oldest">Oldest first</option>
+  </select>
+</div>
+
     <main>
       <h1>Featured show</h1>
       <p class="muted">Your latest set at the top. Swap the title/links each time you post a new one.</p>
@@ -82,7 +90,7 @@
 
       <h2 class="year">2025</h2>
       <div class="show-list">
-        <div class="show" data-tags="guest-mix">
+        <div class="show" data-tags="guest-mix" data-date="2025-07-10">
           <h3>Lot Radio — July 2025</h3>
           <p>Deep set exploring synthesis and texture.</p>
           <div class="links">
@@ -90,7 +98,7 @@
             <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-        <div class="show" data-tags="studio">
+        <div class="show" data-tags="studio" data-date="2025-06-10">
           <h3>Guest Mix — June 2025</h3>
           <p>Guest slot, late-night, slower tempos.</p>
           <div class="links">
@@ -102,7 +110,7 @@
 
       <h2 class="year">2024</h2>
       <div class="show-list">
-        <div class="show" data-tags="lot-radio studio">
+        <div class="show" data-tags="lot-radio studio" data-date="2024-12-10">
           <h3>Lot Radio — December 2024</h3>
           <p>Industrial accents + melodic negatives.</p>
           <div class="links">
@@ -121,24 +129,25 @@
   // year stamp
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // filtering
+  // cache refs
   const buttons = Array.from(document.querySelectorAll('.filter-btn'));
   const years   = Array.from(document.querySelectorAll('.year'));
   const lists   = Array.from(document.querySelectorAll('.show-list'));
-  const shows   = () => Array.from(document.querySelectorAll('.show-list .show'));
+  const sortSel = document.getElementById('sortOrder');
 
+  const shows = () => Array.from(document.querySelectorAll('.show-list .show'));
+
+  // FILTER
   function applyFilter(tag) {
-    // toggle active button
-    buttons.forEach(b => b.classList.toggle('is-active', b.dataset.filter === tag));
+    buttons.forEach(b => b.classList.toggle('is-active', (b.dataset.filter || '') === tag));
 
-    // show/hide shows
     shows().forEach(card => {
       const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
       const match = !tag || tags.includes(tag);
       card.classList.toggle('hidden', !match);
     });
 
-    // hide year headings with no visible shows
+    // hide year sections with no visible shows
     lists.forEach((list, i) => {
       const visible = list.querySelectorAll('.show:not(.hidden)').length > 0;
       years[i].classList.toggle('hidden', !visible);
@@ -146,13 +155,53 @@
     });
   }
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => applyFilter(btn.dataset.filter || ''));
+  buttons.forEach(btn => btn.addEventListener('click', () => applyFilter(btn.dataset.filter || '')));
+
+  // SORT
+  function sortShows(order) {
+    const dir = order === 'oldest' ? 1 : -1; // default newest first
+
+    // sort cards inside each year
+    lists.forEach(list => {
+      const cards = Array.from(list.querySelectorAll('.show'));
+      cards.sort((a, b) => {
+        const da = new Date(a.getAttribute('data-date') || 0).getTime();
+        const db = new Date(b.getAttribute('data-date') || 0).getTime();
+        return (db - da) * (dir === -1 ? 1 : -1); // invert for oldest
+      });
+      cards.forEach(c => list.appendChild(c)); // reattach in new order
+    });
+
+    // reorder year sections themselves based on most-recent card inside
+    const container = lists[0].parentElement; // <main>
+    const groups = years.map((y, i) => ({ yearEl: y, listEl: lists[i] }));
+    groups.sort((g1, g2) => {
+      const top1 = g1.listEl.querySelector('.show');
+      const top2 = g2.listEl.querySelector('.show');
+      const d1 = top1 ? new Date(top1.getAttribute('data-date') || 0).getTime() : 0;
+      const d2 = top2 ? new Date(top2.getAttribute('data-date') || 0).getTime() : 0;
+      return (d2 - d1) * (dir === -1 ? 1 : -1);
+    });
+    // reattach in new order (year heading + its list)
+    groups.forEach(g => {
+      container.appendChild(g.yearEl);
+      container.appendChild(g.listEl);
+    });
+  }
+
+  sortSel?.addEventListener('change', () => {
+    sortShows(sortSel.value);
+    // re-apply current filter so hidden logic stays correct
+    const activeBtn = document.querySelector('.filter-btn.is-active');
+    const current = activeBtn ? (activeBtn.getAttribute('data-filter') || '') : '';
+    applyFilter(current);
   });
 
-  // initial pass (no filter)
+  // initial render
+  sortShows('newest');
   applyFilter('');
 </script>
+
   
 </body>
 </html>
