@@ -114,6 +114,15 @@
 }
 #backToTop:hover { opacity:0.85; }
 
+    .year-btn {
+  background:#121212; border:1px solid #2a2a2a; color:#f3f3f3;
+  padding:6px 10px; border-radius:999px; font-size:12px; cursor:pointer;
+  transition:border-color .15s ease, background-color .15s ease;
+}
+.year-btn:hover { border-color:#3a3a3a; }
+.year-btn.is-active { background:#fff; color:#111; border-color:#e6e6e6; }
+
+    
   </style>
 </head>
 <body>
@@ -156,6 +165,11 @@
         <button class="filter-btn" data-filter="lot-radio">Lot Radio</button>
         <button class="filter-btn" data-filter="guest-mix">Guest Mix</button>
         <button class="filter-btn" data-filter="studio">Studio</button>
+          <!-- Year filter -->
+        <span style="margin-left:16px; font-size:14px; color:#b3b3b3;">Year:</span>
+        <button class="year-btn is-active" data-year="">All</button>
+        <button class="year-btn" data-year="2025">2025</button>
+        <button class="year-btn" data-year="2024">2024</button>
       </div>
 
       <!-- Sort -->
@@ -356,6 +370,57 @@
   btn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
+
+  const yearButtons = Array.from(document.querySelectorAll('.year-btn'));
+
+function applyFilters(tag, year) {
+  // update button states
+  buttons.forEach(b => b.classList.toggle('is-active', (b.dataset.filter || '') === tag));
+  yearButtons.forEach(b => b.classList.toggle('is-active', (b.dataset.year || '') === year));
+
+  shows().forEach(card => {
+    const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
+    const showDate = new Date(card.getAttribute('data-date'));
+    const showYear = showDate.getFullYear().toString();
+
+    const tagMatch = !tag || tags.includes(tag);
+    const yearMatch = !year || showYear === year;
+
+    card.classList.toggle('hidden', !(tagMatch && yearMatch));
+  });
+
+  lists.forEach((list, i) => {
+    const visible = list.querySelectorAll('.show:not(.hidden)').length > 0;
+    years[i].classList.toggle('hidden', !visible);
+    list.classList.toggle('hidden', !visible);
+  });
+}
+
+// hook year buttons
+yearButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tag = document.querySelector('.filter-btn.is-active')?.dataset.filter || '';
+    const year = btn.dataset.year || '';
+    applyFilters(tag, year);
+    setParams({ tag, year, sort: sortSel?.value || "newest" });
+  });
+});
+
+// adjust tag filter click to include year state
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tag = btn.dataset.filter || '';
+    const year = document.querySelector('.year-btn.is-active')?.dataset.year || '';
+    applyFilters(tag, year);
+    setParams({ tag, year, sort: sortSel?.value || "newest" });
+  });
+});
+
+// on load: restore from URL
+const initYear = getParam("year", "");
+applyFilters(initTag, initYear);
+setParams({ tag: initTag, year: initYear, sort: initSort });
+
 </script>
 
 </body>
