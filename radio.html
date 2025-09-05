@@ -62,15 +62,22 @@
     .links a { margin-right:12px; font-size:14px; }
     .links a:hover { text-decoration:underline; opacity:.9; }
 
-    .year { margin:28px 0 10px; font-size:14px; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); }
-    .show-list { display:grid; gap:14px; }
+    .year {
+  margin:40px 0 14px;
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+    .show-list { display:grid; gap:20px; }
     .show {
       background:#121212; border:1px solid #2a2a2a; border-radius:12px; padding:16px;
       transition:border-color .2s ease, background-color .2s ease, transform .02s;
     }
     .show:hover { border-color:#3a3a3a; background:#151515; transform:translateY(-1px); }
-    .show h3 { margin:0 0 6px; font-size:16px; }
-    .show p { margin:0 0 10px; color:var(--muted); font-size:14px; }
+    .show h3 { margin:0 0 8px; font-size:17px; font-weight:600; }
+    .show p  { margin:0 0 12px; color:var(--muted); font-size:14px; line-height:1.5; }
 
     /* Footer */
     footer { border-top:1px solid var(--border); margin-top:36px; padding:18px 0; color:var(--muted); font-size:12px; }
