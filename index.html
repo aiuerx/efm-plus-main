@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EFM</title>
+  <meta name="description" content="Musings on synthesis, sound design, and electronic tools." />
+  <meta property="og:title" content="EFM" />
+  <meta property="og:description" content="Musings on synthesis, sound design, and electronic tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://efm.plus" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <style>
+    :root { --bg:#0b0b0b; --fg:#f3f3f3; --muted:#b3b3b3; --card:#121212; --border:#2a2a2a; }
+    * { box-sizing: border-box; }
+    html, body { height:100%; }
+    body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--fg); }
+    .wrap { max-width:960px; margin:0 auto; padding:24px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid var(--border); position:sticky; top:0; backdrop-filter:saturate(120%) blur(6px); background:rgba(11,11,11,0.7); }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { height:38px; width:38px; display:grid; place-items:center; border:1px solid var(--border); border-radius:12px; font-weight:600; letter-spacing:0.02em; }
+    nav a { color:var(--muted); text-decoration:none; margin-left:16px; font-size:14px; }
+    nav a:hover { color:var(--fg); }
+    .hero { display:grid; gap:18px; padding:40px 0 28px; }
+    .title { font-size:42px; line-height:1.05; letter-spacing:-0.01em; margin:0; }
+    .tagline { color:var(--muted); font-size:16px; margin-top:4px; }
+    .cards { display:grid; grid-template-columns:1fr; gap:14px; margin-top:24px; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; }
+    .card h3 { font-size:16px; margin:0 0 6px; }
+    .card p { margin:0; color:var(--muted); font-size:14px; }
+    .row { display:flex; gap:12px; }
+    .row > .card { flex:1; }
+    .btn { display:inline-block; background:#fff; color:#111; padding:10px 14px; border-radius:12px; font-size:14px; font-weight:600; text-decoration:none; border:1px solid #e6e6e6; }
+    .btn:hover { filter:brightness(0.96); }
+    form { display:flex; gap:8px; margin-top:10px; }
+    input[type=email] { flex:1; background:#0e0e0e; color:#f3f3f3; border:1px solid var(--border); padding:10px 12px; border-radius:12px; font-size:14px; }
+    button[type=submit] { background:#0f62fe; color:white; border:none; padding:10px 14px; border-radius:12px; font-size:14px; font-weight:600; cursor:pointer; }
+    button[type=submit]:hover { filter:brightness(1.05); }
+    footer { border-top:1px solid var(--border); margin-top:36px; padding:18px 0; color:var(--muted); font-size:12px; }
+    @media (min-width:720px){ .cards{ grid-template-columns: repeat(3, 1fr);} .hero{ grid-template-columns: 1fr 1fr; align-items:center; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">EFM</div>
+        <div>
+          <div style="font-weight:700;">EFM</div>
+          
+        </div>
+      </div>
+      <nav>
+        <a href="https://signalnotes.efm.plus">Signal Notes</a>
+        <a href="#subscribe">Subscribe</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1 class="title">Sound, music, and electronics.</h1>
+        <p class="tagline">Musings on synthesis, sound design, and electronic tools.</p>
+        <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="https://signalnotes.efm.plus">Read the archive</a>
+          <a class="btn" href="#subscribe">Subscribe</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>What is EFM?</h3>
+        <p>A small home for projects around sound, music, and electronics. Visit the archive for Signal Notes.</p>
+      </div>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <h3>Latest</h3>
+        <p>New issues land in the archive. Start there if you’re browsing.</p>
+      </div>
+      <div class="card">
+        <h3>Topics</h3>
+        <p>Sound Design, Synthesizers, Signal Flow, FX, Music.</p>
+      </div>
+      <div class="card" id="subscribe">
+        <h3>Subscribe to Signal Notes</h3>
+        <p>One email, sometimes. No comments, no spam.</p>
+        <form action="https://buttondown.email/api/emails/embed-subscribe/efm" method="post" target="popupwindow">
+          <input type="email" name="email" placeholder="you@example.com" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> EFM. <a href="https://signalnotes.efm.plus" style="color:var(--muted);">Signal Notes</a>
+    </footer>
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
