@@ -136,29 +136,43 @@
       © <span id="year"></span> EFM. <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener" style="color:#b3b3b3;">Signal Notes</a>
     </footer>
   </div>
-  <script>
+ <script>
   // year stamp
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // --- URL state: allowed params
+  const ALLOWED_TAGS  = ["", "lot-radio", "guest-mix", "studio"]; // "" = All
+  const ALLOWED_SORTS = ["newest", "oldest"];
+
+  function getParam(name, fallback) {
+    const v = new URLSearchParams(location.search).get(name) || fallback;
+    return v;
+  }
+
+  function setParams(params) {
+    const u = new URL(location);
+    Object.entries(params).forEach(([k, v]) => {
+      if (v === "" || v == null) u.searchParams.delete(k);
+      else u.searchParams.set(k, v);
+    });
+    history.replaceState(null, "", u);
+  }
 
   // cache refs
   const buttons = Array.from(document.querySelectorAll('.filter-btn'));
   const years   = Array.from(document.querySelectorAll('.year'));
   const lists   = Array.from(document.querySelectorAll('.show-list'));
   const sortSel = document.getElementById('sortOrder');
-
-  const shows = () => Array.from(document.querySelectorAll('.show-list .show'));
+  const shows   = () => Array.from(document.querySelectorAll('.show-list .show'));
 
   // FILTER
   function applyFilter(tag) {
     buttons.forEach(b => b.classList.toggle('is-active', (b.dataset.filter || '') === tag));
-
     shows().forEach(card => {
       const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
       const match = !tag || tags.includes(tag);
       card.classList.toggle('hidden', !match);
     });
-
-    // hide year sections with no visible shows
     lists.forEach((list, i) => {
       const visible = list.querySelectorAll('.show:not(.hidden)').length > 0;
       years[i].classList.toggle('hidden', !visible);
@@ -166,25 +180,27 @@
     });
   }
 
-  buttons.forEach(btn => btn.addEventListener('click', () => applyFilter(btn.dataset.filter || '')));
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.dataset.filter || "";
+      applyFilter(tag);
+      setParams({ tag, sort: sortSel?.value || "newest" });
+    });
+  });
 
   // SORT
   function sortShows(order) {
-    const dir = order === 'oldest' ? 1 : -1; // default newest first
-
-    // sort cards inside each year
+    const dir = order === 'oldest' ? 1 : -1;
     lists.forEach(list => {
       const cards = Array.from(list.querySelectorAll('.show'));
       cards.sort((a, b) => {
         const da = new Date(a.getAttribute('data-date') || 0).getTime();
         const db = new Date(b.getAttribute('data-date') || 0).getTime();
-        return (db - da) * (dir === -1 ? 1 : -1); // invert for oldest
+        return (db - da) * (dir === -1 ? 1 : -1);
       });
-      cards.forEach(c => list.appendChild(c)); // reattach in new order
+      cards.forEach(c => list.appendChild(c));
     });
-
-    // reorder year sections themselves based on most-recent card inside
-    const container = lists[0].parentElement; // <main>
+    const container = lists[0].parentElement;
     const groups = years.map((y, i) => ({ yearEl: y, listEl: lists[i] }));
     groups.sort((g1, g2) => {
       const top1 = g1.listEl.querySelector('.show');
@@ -193,25 +209,28 @@
       const d2 = top2 ? new Date(top2.getAttribute('data-date') || 0).getTime() : 0;
       return (d2 - d1) * (dir === -1 ? 1 : -1);
     });
-    // reattach in new order (year heading + its list)
-    groups.forEach(g => {
-      container.appendChild(g.yearEl);
-      container.appendChild(g.listEl);
-    });
+    groups.forEach(g => { container.appendChild(g.yearEl); container.appendChild(g.listEl); });
   }
 
   sortSel?.addEventListener('change', () => {
-    sortShows(sortSel.value);
-    // re-apply current filter so hidden logic stays correct
+    const order = sortSel.value;
+    sortShows(order);
     const activeBtn = document.querySelector('.filter-btn.is-active');
-    const current = activeBtn ? (activeBtn.getAttribute('data-filter') || '') : '';
-    applyFilter(current);
+    const tag = activeBtn ? (activeBtn.getAttribute('data-filter') || '') : '';
+    applyFilter(tag);
+    setParams({ tag, sort: order });
   });
 
-  // initial render
-  sortShows('newest');
-  applyFilter('');
+  // INITIAL: read URL params
+  const initTag  = ALLOWED_TAGS.includes(getParam("tag", ""))   ? getParam("tag", "")   : "";
+  const initSort = ALLOWED_SORTS.includes(getParam("sort","")) ? getParam("sort","newest") : "newest";
+
+  if (sortSel) sortSel.value = initSort;
+  sortShows(initSort);
+  applyFilter(initTag);
+  setParams({ tag: initTag, sort: initSort });
 </script>
+
 
   
 </body>
