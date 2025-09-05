@@ -82,11 +82,20 @@
     /* Footer */
     footer { border-top:1px solid var(--border); margin-top:36px; padding:18px 0; color:var(--muted); font-size:12px; }
     .hidden { display:none !important; }
+
+    .backtotop {
+  font-size:12px;
+  color:var(--muted);
+  text-decoration:none;
+}
+.backtotop:hover { color:var(--fg); text-decoration:underline; }
+
+  
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
+    <header id="top">
       <div class="brand">
         <div class="site-name">EFM</div>
       </div>
@@ -170,9 +179,13 @@
       </div>
     </main>
 
-    <footer>
-      © <span id="year"></span> EFM. <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener" style="color:#b3b3b3;">Signal Notes</a>
-    </footer>
+   <footer>
+  © <span id="year"></span> EFM. 
+  <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener" style="color:#b3b3b3;">Signal Notes</a>
+  <span style="margin:0 8px;">•</span>
+  <a href="#top" class="backtotop">Back to top ↑</a>
+</footer>
+
   </div>
 
   <!-- Filtering + Sorting + Shareable URL -->
