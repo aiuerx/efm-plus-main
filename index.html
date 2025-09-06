@@ -107,6 +107,11 @@
       .hero { grid-template-columns: 1fr; gap:18px; }
       .tagline { max-width:55ch; }
     }
+    .section-divider {
+  height: 1px;
+  margin: 32px 0; /* vertical spacing around the line */
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+}
   </style>
 </head>
 <body>
@@ -134,7 +139,13 @@
       </div>
       <div></div>
     </section>
+</section> <!-- end .hero -->
 
+<div class="section-divider"></div>
+
+<section class="latest">
+  ...
+    
     <!-- Latest (two columns, subtle links, no heading) -->
     <section class="latest">
       <div class="latest-grid">
@@ -161,6 +172,14 @@
         </article>
       </div>
     </section>
+
+  </section> <!-- end .latest -->
+
+<div class="section-divider"></div>
+
+<section class="subscribe" id="subscribe">
+  ...
+
 
     <!-- Subscribe block -->
     <section class="subscribe" id="subscribe">
