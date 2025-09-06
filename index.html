@@ -46,16 +46,8 @@
     }
     .btn:hover { filter:brightness(.96); transform:translateY(-1px); }
 
-    /* Latest (new) */
-    .latest { padding: 10px 0 6px; }
-    .latest-title {
-      margin: 6px 0 10px;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    /* Latest (cards with subtle links) */
+    .latest { padding: 8px 0 6px; }
     .latest-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -72,8 +64,17 @@
     }
     .latest-heading { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
     .latest-meta { margin: 0 0 6px; color: var(--muted); font-size: 14px; }
-    .latest-desc { margin: 0 10px 12px 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
-    .latest-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .latest-desc { margin: 0 10px 10px 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .latest-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      margin-right: 12px;
+    }
+    .latest-links a:hover {
+      color: var(--fg);
+      text-decoration: underline;
+    }
 
     /* Subscribe card */
     .subscribe {
@@ -131,9 +132,8 @@
       <div></div>
     </section>
 
-    <!-- Latest (two columns) -->
+    <!-- Latest (two columns, subtle links, no heading) -->
     <section class="latest">
-      <h2 class="latest-title">Latest</h2>
       <div class="latest-grid">
         <!-- Latest show -->
         <article class="latest-card">
@@ -141,8 +141,8 @@
           <p class="latest-meta">Lot Radio — August 2025</p>
           <p class="latest-desc">Recorded live in Brooklyn. Textures, pulses, and pressure.</p>
           <div class="latest-links">
-            <a class="btn" href="https://soundcloud.com/YOUR_HANDLE/lot-radio-aug-2025" target="_blank" rel="noopener">SoundCloud</a>
-            <a class="btn" href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://soundcloud.com/YOUR_HANDLE/lot-radio-aug-2025" target="_blank" rel="noopener">SoundCloud</a>
+            <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
           </div>
         </article>
 
@@ -152,8 +152,8 @@
           <p class="latest-meta">Parallel FX Chains on a MixWizard</p>
           <p class="latest-desc">Delay → reverb without mud. Patchbay options, clean returns.</p>
           <div class="latest-links">
-            <a class="btn" href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Read the issue</a>
-            <a class="btn" href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Browse archive</a>
+            <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Read the issue</a>
+            <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Browse archive</a>
           </div>
         </article>
       </div>
