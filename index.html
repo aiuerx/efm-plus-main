@@ -26,10 +26,7 @@
     }
     .brand { display:flex; align-items:center; gap:12px; }
     .site-name {
-      font-weight:700;
-      font-size:20px;
-      letter-spacing:.02em;
-      line-height:1;
+      font-weight:700; font-size:20px; letter-spacing:.02em; line-height:1;
     }
     nav a { color:var(--muted); text-decoration:none; margin-left:16px; font-size:14px; }
     nav a:hover { color:var(--fg); }
@@ -46,15 +43,17 @@
     }
     .btn:hover { filter:brightness(.96); transform:translateY(-1px); }
 
+    /* Divider (subtle) */
+    .section-divider {
+      height: 1px;
+      margin: 24px 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
+    }
+
     /* Latest (cards with subtle links) */
-    .latest { 
-  margin-top: 40px;   /* space above the section */
-  padding: 8px 0 6px;
-}
+    .latest { margin-top: 24px; }
     .latest-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
+      display: grid; grid-template-columns: 1fr; gap: 14px;
     }
     @media (min-width: 860px){
       .latest-grid { grid-template-columns: 1fr 1fr; }
@@ -69,20 +68,14 @@
     .latest-meta { margin: 0 0 6px; color: var(--muted); font-size: 14px; }
     .latest-desc { margin: 0 10px 10px 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
     .latest-links a {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      margin-right: 12px;
+      font-size: 13px; color: var(--muted); text-decoration: none; margin-right: 12px;
     }
-    .latest-links a:hover {
-      color: var(--fg);
-      text-decoration: underline;
-    }
+    .latest-links a:hover { color: var(--fg); text-decoration: underline; }
 
     /* Subscribe card */
     .subscribe {
       background:var(--card); border:1px solid var(--border);
-      border-radius:16px; padding:20px; margin-top:28px;
+      border-radius:16px; padding:20px; margin-top:24px;
     }
     .subscribe h3 { margin:0 0 6px; font-size:16px; }
     .subscribe p { margin:0 0 12px; color:var(--muted); font-size:14px; }
@@ -107,11 +100,6 @@
       .hero { grid-template-columns: 1fr; gap:18px; }
       .tagline { max-width:55ch; }
     }
-    .section-divider {
-  height: 1px;
-  margin: 32px 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
-}
   </style>
 </head>
 <body>
@@ -139,15 +127,10 @@
       </div>
       <div></div>
     </section>
-</section> <!-- end .hero -->
 
-<div class="section-divider"></div>
+    <div class="section-divider"></div>
 
-<section class="latest">
-  <!-- your latest cards -->
-</section>
-    
-    <!-- Latest (two columns, subtle links, no heading) -->
+    <!-- Latest (two columns, subtle links) -->
     <section class="latest">
       <div class="latest-grid">
         <!-- Latest show -->
@@ -174,15 +157,9 @@
       </div>
     </section>
 
-  </section> <!-- end .latest -->
+    <div class="section-divider"></div>
 
-<div class="section-divider"></div>
-
-<section class="subscribe" id="subscribe">
-  <!-- your subscribe form -->
-</section>
-
-    <!-- Subscribe block -->
+    <!-- Subscribe -->
     <section class="subscribe" id="subscribe">
       <h3>Subscribe to Signal Notes</h3>
       <p>One email, sometimes. No comments, no spam.</p>
