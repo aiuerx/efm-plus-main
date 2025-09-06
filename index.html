@@ -27,9 +27,9 @@
     .brand { display:flex; align-items:center; gap:12px; }
     .site-name {
       font-weight:700;
-      font-size:20px;   /* slightly larger */
+      font-size:20px;
       letter-spacing:.02em;
-      line-height:1;    /* keeps the header height unchanged */
+      line-height:1;
     }
     nav a { color:var(--muted); text-decoration:none; margin-left:16px; font-size:14px; }
     nav a:hover { color:var(--fg); }
@@ -45,6 +45,35 @@
       border:1px solid #e6e6e6; transition: filter .15s, transform .02s;
     }
     .btn:hover { filter:brightness(.96); transform:translateY(-1px); }
+
+    /* Latest (new) */
+    .latest { padding: 10px 0 6px; }
+    .latest-title {
+      margin: 6px 0 10px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .latest-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 860px){
+      .latest-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .latest-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .latest-heading { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+    .latest-meta { margin: 0 0 6px; color: var(--muted); font-size: 14px; }
+    .latest-desc { margin: 0 10px 12px 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .latest-links { display: flex; gap: 10px; flex-wrap: wrap; }
 
     /* Subscribe card */
     .subscribe {
@@ -102,6 +131,34 @@
       <div></div>
     </section>
 
+    <!-- Latest (two columns) -->
+    <section class="latest">
+      <h2 class="latest-title">Latest</h2>
+      <div class="latest-grid">
+        <!-- Latest show -->
+        <article class="latest-card">
+          <h3 class="latest-heading">Latest show</h3>
+          <p class="latest-meta">Lot Radio — August 2025</p>
+          <p class="latest-desc">Recorded live in Brooklyn. Textures, pulses, and pressure.</p>
+          <div class="latest-links">
+            <a class="btn" href="https://soundcloud.com/YOUR_HANDLE/lot-radio-aug-2025" target="_blank" rel="noopener">SoundCloud</a>
+            <a class="btn" href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+          </div>
+        </article>
+
+        <!-- Latest Signal Notes -->
+        <article class="latest-card">
+          <h3 class="latest-heading">Latest Signal Notes</h3>
+          <p class="latest-meta">Parallel FX Chains on a MixWizard</p>
+          <p class="latest-desc">Delay → reverb without mud. Patchbay options, clean returns.</p>
+          <div class="latest-links">
+            <a class="btn" href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Read the issue</a>
+            <a class="btn" href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Browse archive</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- Subscribe block -->
     <section class="subscribe" id="subscribe">
       <h3>Subscribe to Signal Notes</h3>
@@ -112,14 +169,14 @@
       </form>
     </section>
 
-   <footer>
-  © <span id="year"></span> EFM.
-  <br/>
-  <span style="color:var(--muted); font-size:12px; display:inline-block; margin-top:6px;">
-    💬 Do you have tips, suggestions, or something interesting to share?<br/>
-    Get in touch: <a href="mailto:notes@efm.plus" style="color:var(--fg);">notes@efm.plus</a>
-  </span>
-</footer>
+    <footer>
+      © <span id="year"></span> EFM.
+      <br/>
+      <span style="color:var(--muted); font-size:12px; display:inline-block; margin-top:6px;">
+        💬 Do you have tips, suggestions, or something interesting to share?<br/>
+        Get in touch: <a href="mailto:notes@efm.plus" style="color:var(--fg);">notes@efm.plus</a>
+      </span>
+    </footer>
   </div>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
