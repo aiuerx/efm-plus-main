@@ -11,6 +11,17 @@
     * { box-sizing: border-box; }
     html, body { height:100%; }
     body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--fg); }
+    
+    /* Sitewide links (cover :link and :visited to avoid UA blue/purple) */
+a, a:link, a:visited {
+  color: var(--fg);     /* white */
+  text-decoration: none;
+}
+a:hover, a:focus-visible {
+  color: var(--muted);  /* gray on hover */
+  text-decoration: none;
+}
+
    a {
   color: var(--fg);     /* white */
   text-decoration: none;
@@ -89,17 +100,25 @@ a:hover {
     .featured .meta { color:var(--muted); font-size:14px; margin:0 0 10px; }
     
 /* SoundCloud / YouTube links */
+/* SoundCloud / YouTube links (cards + "All on …") */
 .links a,
-.playlist-links a {
-  color: var(--fg);          /* white by default */
+.links a:link,
+.links a:visited,
+.playlist-links a,
+.playlist-links a:link,
+.playlist-links a:visited {
+  color: var(--fg);           /* white by default */
   text-decoration: none;
+  font-size: 14px;            /* restore the smaller link size */
+  margin-right: 12px;         /* keep the spacing between links */
 }
 
 .links a:hover,
 .playlist-links a:hover {
-  color: var(--muted);       /* shift to muted gray on hover */
-  text-decoration: none;     /* keep it clean */
+  color: var(--muted);        /* gray on hover */
+  text-decoration: none;
 }
+
 
 
 
