@@ -16,7 +16,7 @@
 
     .wrap { max-width:1100px; margin:0 auto; padding:24px; }
 
-    /* Header (match landing) */
+    /* Header */
     header {
       display:flex; align-items:center; justify-content:space-between; gap:16px;
       padding:18px 0; border-bottom:1px solid var(--border);
@@ -27,14 +27,19 @@
     nav a { color:var(--muted); margin-left:16px; font-size:14px; }
     nav a:hover { color:var(--fg); }
 
-    /* Page intro */
-    /* Page intro — match Resources */
-h1 {
-  font-size: clamp(28px, 5.5vw, 56px);
-  line-height: .95;
-  letter-spacing: -0.01em;
-  margin: 24px 0 12px;
-}
+    /* Page intro (match Resources) */
+    .hero { padding:40px 0 16px; }
+    .hero h1 {
+      font-size: clamp(28px, 5.5vw, 56px);
+      line-height:.95;
+      letter-spacing:-.01em;
+      margin:0 0 12px;
+    }
+    .section-divider {
+      height:1px;
+      margin:24px 0;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+    }
     p.muted { color:var(--muted); margin:0; }
 
     /* CTA buttons */
@@ -59,13 +64,13 @@ h1 {
 
     /* Featured + lists */
     .featured {
-  margin-top:28px; /* was 20px, gives more breathing room */
-  background:#121212;
-  border:1px solid #2a2a2a;
-  border-radius:16px;
-  padding:18px;
-  transition:border-color .2s ease, background-color .2s ease, transform .02s;
-}
+      margin-top:16px;
+      background:#121212;
+      border:1px solid #2a2a2a;
+      border-radius:16px;
+      padding:18px;
+      transition:border-color .2s ease, background-color .2s ease, transform .02s;
+    }
     .featured:hover { border-color:#3a3a3a; background:#151515; transform:translateY(-1px); }
     .featured h2 { margin:0 0 10px; font-size:22px; font-weight:700; }
     .featured .meta { color:var(--muted); font-size:14px; margin:0 0 10px; }
@@ -73,13 +78,13 @@ h1 {
     .links a:hover { text-decoration:underline; opacity:.9; }
 
     .year {
-  margin:40px 0 14px;
-  font-size:18px;
-  font-weight:600;
-  letter-spacing:0.08em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
+      margin:40px 0 14px;
+      font-size:18px;
+      font-weight:600;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
     .show-list { display:grid; gap:20px; }
     .show {
       background:#121212; border:1px solid #2a2a2a; border-radius:12px; padding:16px;
@@ -93,66 +98,50 @@ h1 {
     footer { border-top:1px solid var(--border); margin-top:36px; padding:18px 0; color:var(--muted); font-size:12px; }
     .hidden { display:none !important; }
 
-    .backtotop {
-  font-size:12px;
-  color:var(--muted);
-  text-decoration:none;
-}
-.backtotop:hover { color:var(--fg); text-decoration:underline; }
-
-    html {
-  scroll-behavior: smooth;
-}
-
+    /* Back to top */
+    html { scroll-behavior: smooth; }
     #backToTop {
-  display:none;
-  position:fixed;
-  bottom:24px;
-  right:24px;
-  background:#fff;
-  color:#111;
-  border:none;
-  border-radius:50%;
-  width:40px;
-  height:40px;
-  font-size:18px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow:0 4px 12px rgba(0,0,0,0.3);
-  transition:opacity .2s ease;
-  z-index:50;
-}
-#backToTop:hover { opacity:0.85; }
+      display:none;
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      background:#fff;
+      color:#111;
+      border:none;
+      border-radius:50%;
+      width:40px;
+      height:40px;
+      font-size:18px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      transition:opacity .2s ease;
+      z-index:50;
+    }
+    #backToTop:hover { opacity:0.85; }
 
+    /* Year buttons */
     .year-btn {
-  background:#121212; border:1px solid #2a2a2a; color:#f3f3f3;
-  padding:6px 10px; border-radius:999px; font-size:12px; cursor:pointer;
-  transition:border-color .15s ease, background-color .15s ease;
-}
-.year-btn:hover { border-color:#3a3a3a; }
-.year-btn.is-active { background:#fff; color:#111; border-color:#e6e6e6; }
+      background:#121212; border:1px solid #2a2a2a; color:#f3f3f3;
+      padding:6px 10px; border-radius:999px; font-size:12px; cursor:pointer;
+      transition:border-color .15s ease, background-color .15s ease;
+    }
+    .year-btn:hover { border-color:#3a3a3a; }
+    .year-btn.is-active { background:#fff; color:#111; border-color:#e6e6e6; }
 
-.playlist-links {
-  margin:6px 0 18px;
-  font-size:13px;
-}
-.playlist-links a {
-  color:var(--muted);
-  text-decoration:none;
-}
-.playlist-links a:hover {
-  color:var(--fg);
-  text-decoration:underline;
-}
-    .hero { padding:40px 0 10px; }
-.hero h1 {
-  font-size: clamp(28px, 5.5vw, 56px);
-  line-height:.95;
-  letter-spacing:-.01em;
-  margin:0 0 12px;
-}
-
-    
+    /* Playlist links */
+    .playlist-links {
+      margin:6px 0 0;
+      font-size:13px;
+    }
+    .playlist-links a {
+      color:var(--muted);
+      text-decoration:none;
+    }
+    .playlist-links a:hover {
+      color:var(--fg);
+      text-decoration:underline;
+    }
   </style>
 </head>
 <body>
@@ -169,17 +158,17 @@ h1 {
       </nav>
     </header>
 
-   <main>
-  <section class="hero">
-    <h1>Latest show</h1>
+    <main>
+      <section class="hero">
+        <h1>Latest show</h1>
+        <div class="playlist-links">
+          <a href="https://soundcloud.com/efmplus/sets/efm-radio" target="_blank" rel="noopener">All on SoundCloud</a>
+          <span style="margin:0 6px; color:var(--muted);">•</span>
+          <a href="https://youtube.com/playlist?list=PLx2FKwyN8ExD4aL7sIL0xsAcdqOI9A3cJ&si=Be-SZnuMA1GhBSs1" target="_blank" rel="noopener">All on YouTube</a>
+        </div>
+      </section>
 
-    <!-- Playlist CTAs -->
-    <div class="playlist-links">
-      <a href="https://soundcloud.com/efmplus/sets/efm-radio" target="_blank" rel="noopener">All on SoundCloud</a>
-      <span style="margin:0 6px; color:var(--muted);">•</span>
-      <a href="https://youtube.com/playlist?list=PLx2FKwyN8ExD4aL7sIL0xsAcdqOI9A3cJ&si=Be-SZnuMA1GhBSs1" target="_blank" rel="noopener">All on YouTube</a>
-    </div>
-  </section>
+      <div class="section-divider"></div>
 
       <!-- Featured card -->
       <div class="featured">
@@ -199,7 +188,7 @@ h1 {
         <button class="filter-btn" data-filter="guest-mix">Guest Mix</button>
         <button class="filter-btn" data-filter="studio">Studio</button>
         <button class="filter-btn" data-filter="live-set">Live Set</button>
-          <!-- Year filter -->
+
         <strong style="margin-left:16px; font-size:14px; color:#b3b3b3;">Year:</strong>
         <button class="year-btn is-active" data-year="">All</button>
         <button class="year-btn" data-year="2025">2025</button>
@@ -220,7 +209,7 @@ h1 {
       <div class="show-list">
         <div class="show" data-tags="lot-radio guest-mix" data-date="2025-08-01">
           <h3>Lot Radio w/ JR2k — August 01 2025</h3>
-          <p>EFM invites Floorspeed Record's JR2k aka Jackson Ryland for a hard hitting techno session.</p>
+          <p>EFM invites Floorspeed Records’ JR2k (Jackson Ryland) for a hard-hitting techno session.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-with-jr2k-the-lot-radio-08" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/zjRoc8hejQo" target="_blank" rel="noopener">YouTube</a>
@@ -228,45 +217,45 @@ h1 {
         </div>
         <div class="show" data-tags="lot-radio guest-mix" data-date="2025-07-06">
           <h3>Lot Radio w/ Joeyjoey — July 06 2025</h3>
-          <p>EFM invities Joeyjoey for a session of ambient, glitch, downtempo music.</p>
+          <p>EFM invites Joeyjoey for a session of ambient, glitch, and downtempo music.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-with-joeyjoey-the-lot" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/UFlNO7vNEuI" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2025-06-06">
+        <div class="show" data-tags="lot-radio" data-date="2025-06-06">
           <h3>Lot Radio — June 06 2025</h3>
-          <p>Eclectic mix of house, electronica and techno, all on wax.</p>
+          <p>Eclectic mix of house, electronica, and techno — all on wax.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-06-06-2025" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/nOESV88iMiE" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2025-05-09">
+        <div class="show" data-tags="lot-radio" data-date="2025-05-09">
           <h3>Lot Radio — May 09 2025</h3>
-          <p>2 hours of straight techno.</p>
+          <p>Two hours of straight techno.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-05-09-2025" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/cd1btVzw0CI" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2025-04-11">
+        <div class="show" data-tags="lot-radio" data-date="2025-04-11">
           <h3>Lot Radio — April 11 2025</h3>
-          <p>Mellow late night set for quiet nights and slow drives.</p>
+          <p>Mellow late-night set for quiet nights and slow drives.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-04-11-2025" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/4cIuYfd1ZV0" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio guest-mix" data-date="2025-03-14">
+        <div class="show" data-tags="lot-radio guest-mix" data-date="2025-03-14">
           <h3>Lot Radio w/ mvns — March 14 2025</h3>
-          <p>mvns takes over this month’s show focusing on lesser-known Japanese and Indonesian music of various genres that their archival work is known for, alongside newer releases</p>
+          <p>mvns focuses on lesser-known Japanese and Indonesian music alongside newer releases.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-with-mvns-the-lot-radio-03" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/KEceRagw2i0" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio guest-mix" data-date="2025-01-17">
+        <div class="show" data-tags="lot-radio guest-mix" data-date="2025-01-17">
           <h3>Lot Radio w/ Will August Park — January 17 2025</h3>
           <p>EFM invites the brilliant musician Will August Park.</p>
           <div class="links">
@@ -281,13 +270,13 @@ h1 {
       <div class="show-list">
         <div class="show" data-tags="lot-radio" data-date="2024-11-22">
           <h3>Lot Radio — November 22 2024</h3>
-          <p>A mix of favorites; dub, house, soul, funk, electronica and everything in between</p>
+          <p>Dub, house, soul, funk, electronica — favorites across the spectrum.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-11-22-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/ZWUiPM1Po78" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio guest-mix" data-date="2024-10-25">
+        <div class="show" data-tags="lot-radio guest-mix" data-date="2024-10-25">
           <h3>Lot Radio w/ LINDA — October 25 2024</h3>
           <p>EFM invites LINDA for a session focused on funky, groovy techno.</p>
           <div class="links">
@@ -295,31 +284,31 @@ h1 {
             <a href="https://youtu.be/QZP82-tQvyM" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2024-09-27">
+        <div class="show" data-tags="lot-radio" data-date="2024-09-27">
           <h3>Lot Radio — September 27 2024</h3>
-          <p>Electronica, IDM, Techno and house tunes.</p>
+          <p>Electronica, IDM, techno, and house tunes.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-09-27-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/Y2l0CjY8EZ4" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2024-08-30">
+        <div class="show" data-tags="lot-radio" data-date="2024-08-30">
           <h3>Lot Radio — August 30 2024</h3>
-          <p>Techno, Electronica and IDM session.</p>
+          <p>Techno, electronica, and IDM session.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-08-30-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/Y2Lg03-iwrw" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2024-08-02">
+        <div class="show" data-tags="lot-radio" data-date="2024-08-02">
           <h3>Lot Radio — August 02 2024</h3>
-          <p>"From groovy house to peaking techno".</p>
+          <p>From groovy house to peaking techno.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-08-02-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/2ZZ_-XC_DdA" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio guest-mix" data-date="2024-07-19">
+        <div class="show" data-tags="lot-radio guest-mix" data-date="2024-07-19">
           <h3>Lot Radio w/ Colloboh — July 19 2024</h3>
           <p>EFM invites the inimitable Colloboh.</p>
           <div class="links">
@@ -327,15 +316,15 @@ h1 {
             <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2024-06-07">
+        <div class="show" data-tags="lot-radio" data-date="2024-06-07">
           <h3>Lot Radio — June 07 2024</h3>
-          <p>Glitch, IDM, Electronica and sparse dance music.</p>
+          <p>Glitch, IDM, electronica, and sparse dance music.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-06-07-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/zesM1xcSxrw" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2024-05-10">
+        <div class="show" data-tags="lot-radio" data-date="2024-05-10">
           <h3>Lot Radio — May 10 2024</h3>
           <p>Jubilant session of weirdo house and IDM.</p>
           <div class="links">
@@ -343,33 +332,33 @@ h1 {
             <a href="https://youtu.be/pPsRZTKp2z4" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio guest-mix live-set" data-date="2024-04-13">
+        <div class="show" data-tags="lot-radio guest-mix live-set" data-date="2024-04-13">
           <h3>Lot Radio w/ Henry Solomon & Logan Kane — April 13 2024</h3>
-          <p>EFM invites Henry Solomon & Logan Kane via Minaret Records for a late night session sharing their record "Outside World 3" as well as some eclectic jazz gems and a live session.</p>
+          <p>Minaret Records takeover: sharing “Outside World 3,” eclectic jazz gems, and a live session.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-with-henry-solomon-and-logan-kane-the-lot-radio-04-13-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/Fn1pZM5x4ik" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio guest-mix" data-date="2024-03-15">
+        <div class="show" data-tags="lot-radio guest-mix" data-date="2024-03-15">
           <h3>Lot Radio w/ Afrikan Sciences — March 15 2024</h3>
-          <p>EFM invites the legendary Afrikan Sciences for a night of funk, dance and all sorts of eclectic music for the soul.</p>
+          <p>Legendary Afrikan Sciences: funk, dance, and eclectic music for the soul.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-with-afrikan-sciences-the-lot-radio-03-15-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/b39mZ6oMqU0" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio guest-mix" data-date="2024-02-16">
+        <div class="show" data-tags="lot-radio guest-mix" data-date="2024-02-16">
           <h3>Lot Radio w/ Buzzi — February 16 2024</h3>
-          <p>EFM invites the hard techno legend Buzzi for a night of heavy hitters.</p>
+          <p>Hard techno with Buzzi.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-with-buzzi-the-lot-radio-02-16-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/SK4x9mxHC7g" target="_blank" rel="noopener">YouTube</a>
           </div>
         </div>
-         <div class="show" data-tags="lot-radio" data-date="2024-01-19">
+        <div class="show" data-tags="lot-radio" data-date="2024-01-19">
           <h3>Lot Radio — January 19 2024</h3>
-          <p>Sounds, Systems & Techniques.</p>
+          <p>Sounds, systems & techniques.</p>
           <div class="links">
             <a href="https://soundcloud.com/thelotradio/efm-the-lot-radio-01-19-2024" target="_blank" rel="noopener">SoundCloud</a>
             <a href="https://youtu.be/FD4wuNybzIA" target="_blank" rel="noopener">YouTube</a>
@@ -378,15 +367,14 @@ h1 {
       </div>
     </main>
 
-   <footer>
-  © <span id="year"></span> EFM.
-  <br/>
-  <span style="color:var(--muted); font-size:12px; display:inline-block; margin-top:6px;">
-    💬 Do you have tips, suggestions, or something interesting to share?<br/>
-    Get in touch: <a href="mailto:notes@efm.plus" style="color:var(--fg);">notes@efm.plus</a>
-  </span>
-</footer>
-
+    <footer>
+      © <span id="year"></span> EFM.
+      <br/>
+      <span style="color:var(--muted); font-size:12px; display:inline-block; margin-top:6px;">
+        💬 Do you have tips, suggestions, or something interesting to share?<br/>
+        Get in touch: <a href="mailto:notes@efm.plus" style="color:var(--fg);">notes@efm.plus</a>
+      </span>
+    </footer>
   </div>
 
   <!-- Filtering + Sorting + Shareable URL -->
@@ -394,8 +382,8 @@ h1 {
     // year stamp
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- URL state: allowed params
-    const ALLOWED_TAGS  = ["", "lot-radio", "guest-mix", "studio"]; // "" = All
+    // include all filters you expose in the UI:
+    const ALLOWED_TAGS  = ["", "lot-radio", "guest-mix", "studio", "live-set"]; // "" = All
     const ALLOWED_SORTS = ["newest", "oldest"];
 
     function getParam(name, fallback) {
@@ -475,7 +463,7 @@ h1 {
     });
 
     // INITIAL: read URL params
-    const initTag  = ALLOWED_TAGS.includes(getParam("tag", ""))   ? getParam("tag", "")   : "";
+    const initTag  = ALLOWED_TAGS.includes(getParam("tag", "")) ? getParam("tag", "") : "";
     const initSort = ALLOWED_SORTS.includes(getParam("sort","")) ? getParam("sort","newest") : "newest";
 
     if (sortSel) sortSel.value = initSort;
@@ -483,71 +471,63 @@ h1 {
     applyFilter(initTag);
     setParams({ tag: initTag, sort: initSort });
   </script>
+
+  <!-- Floating back-to-top -->
   <button id="backToTop" title="Back to top">↑</button>
-<script>
-  const btn = document.getElementById("backToTop");
-  window.addEventListener("scroll", () => {
-    if (document.documentElement.scrollTop > 400) {
-      btn.style.display = "block";
-    } else {
-      btn.style.display = "none";
+  <script>
+    const btn = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      btn.style.display = (document.documentElement.scrollTop > 400) ? "block" : "none";
+    });
+    btn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Year filter integration
+    const yearButtons = Array.from(document.querySelectorAll('.year-btn'));
+    function applyFilters(tag, year) {
+      buttons.forEach(b => b.classList.toggle('is-active', (b.dataset.filter || '') === tag));
+      yearButtons.forEach(b => b.classList.toggle('is-active', (b.dataset.year || '') === year));
+
+      shows().forEach(card => {
+        const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
+        const showDate = new Date(card.getAttribute('data-date'));
+        const showYear = showDate.getFullYear().toString();
+
+        const tagMatch = !tag || tags.includes(tag);
+        const yearMatch = !year || showYear === year;
+
+        card.classList.toggle('hidden', !(tagMatch && yearMatch));
+      });
+
+      lists.forEach((list, i) => {
+        const visible = list.querySelectorAll('.show:not(.hidden)').length > 0;
+        years[i].classList.toggle('hidden', !visible);
+        list.classList.toggle('hidden', !visible);
+      });
     }
-  });
-  btn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
 
-  const yearButtons = Array.from(document.querySelectorAll('.year-btn'));
+    yearButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tag = document.querySelector('.filter-btn.is-active')?.dataset.filter || '';
+        const year = btn.dataset.year || '';
+        applyFilters(tag, year);
+        setParams({ tag, year, sort: sortSel?.value || "newest" });
+      });
+    });
 
-function applyFilters(tag, year) {
-  // update button states
-  buttons.forEach(b => b.classList.toggle('is-active', (b.dataset.filter || '') === tag));
-  yearButtons.forEach(b => b.classList.toggle('is-active', (b.dataset.year || '') === year));
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tag = btn.dataset.filter || '';
+        const year = document.querySelector('.year-btn.is-active')?.dataset.year || '';
+        applyFilters(tag, year);
+        setParams({ tag, year, sort: sortSel?.value || "newest" });
+      });
+    });
 
-  shows().forEach(card => {
-    const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
-    const showDate = new Date(card.getAttribute('data-date'));
-    const showYear = showDate.getFullYear().toString();
-
-    const tagMatch = !tag || tags.includes(tag);
-    const yearMatch = !year || showYear === year;
-
-    card.classList.toggle('hidden', !(tagMatch && yearMatch));
-  });
-
-  lists.forEach((list, i) => {
-    const visible = list.querySelectorAll('.show:not(.hidden)').length > 0;
-    years[i].classList.toggle('hidden', !visible);
-    list.classList.toggle('hidden', !visible);
-  });
-}
-
-// hook year buttons
-yearButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tag = document.querySelector('.filter-btn.is-active')?.dataset.filter || '';
-    const year = btn.dataset.year || '';
-    applyFilters(tag, year);
-    setParams({ tag, year, sort: sortSel?.value || "newest" });
-  });
-});
-
-// adjust tag filter click to include year state
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tag = btn.dataset.filter || '';
-    const year = document.querySelector('.year-btn.is-active')?.dataset.year || '';
-    applyFilters(tag, year);
-    setParams({ tag, year, sort: sortSel?.value || "newest" });
-  });
-});
-
-// on load: restore from URL
-const initYear = getParam("year", "");
-applyFilters(initTag, initYear);
-setParams({ tag: initTag, year: initYear, sort: initSort });
-
-</script>
-
+    const initYear = getParam("year", "");
+    applyFilters(initTag, initYear);
+    setParams({ tag: initTag, year: initYear, sort: initSort });
+  </script>
 </body>
 </html>
