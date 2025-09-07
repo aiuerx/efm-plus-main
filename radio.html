@@ -81,8 +81,18 @@
     .featured { border-radius:16px; padding:18px; margin-top:16px; }
     .featured h2 { margin:0 0 10px; font-size:22px; font-weight:700; }
     .featured .meta { color:var(--muted); font-size:14px; margin:0 0 10px; }
-    .links a { margin-right:12px; font-size:14px; }
-    .links a:hover { text-decoration:underline; opacity:.9; }
+    /* Links inside show cards (SoundCloud / YouTube) */
+.links a {
+  margin-right: 12px;
+  font-size: 14px;
+  color: var(--muted);        /* muted gray by default */
+  text-decoration: none;
+}
+.links a:hover {
+  color: var(--fg);           /* white on hover */
+  text-decoration: none;      /* no underline */
+}
+
 
     .year {
       margin:40px 0 14px;
