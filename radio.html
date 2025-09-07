@@ -81,17 +81,20 @@
     .featured { border-radius:16px; padding:18px; margin-top:16px; }
     .featured h2 { margin:0 0 10px; font-size:22px; font-weight:700; }
     .featured .meta { color:var(--muted); font-size:14px; margin:0 0 10px; }
-    /* Links inside show cards (SoundCloud / YouTube) */
-.links a {
-  margin-right: 12px;
-  font-size: 14px;
-  color: var(--muted);        /* muted gray by default */
+    
+/* SoundCloud / YouTube links */
+.links a,
+.playlist-links a {
+  color: var(--fg);          /* white by default */
   text-decoration: none;
 }
-.links a:hover {
-  color: var(--fg);           /* white on hover */
-  text-decoration: none;      /* no underline */
+
+.links a:hover,
+.playlist-links a:hover {
+  color: var(--muted);       /* shift to muted gray on hover */
+  text-decoration: none;     /* keep it clean */
 }
+
 
 
     .year {
