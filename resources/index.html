@@ -7,34 +7,34 @@
   <meta name="description" content="EFM resources: guides, sample packs, tools, hardware, and reading." />
   <meta name="theme-color" content="#0a0a0a" />
   <style>
-    :root { --bg:#0b0b0b; --fg:#f3f3f3; --muted:#bdbdbd; --card:#121212; --border:#2a2a2a; }
-    * { box-sizing: border-box; } html, body { height:100%; }
+    :root { --bg:#0b0b0b; --fg:#f3f3f3; --muted:#bdbdbd; --card:#121212; --border:#2a2a2a; --header-h:66px; }
+
+    * { box-sizing: border-box; }
+    html, body { height:100%; }
     html { scroll-behavior: smooth; }
     body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--fg); }
     .wrap { max-width:1100px; margin:0 auto; padding:24px; }
 
     /* Header */
-    header {display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;border-bottom:1px solid var(--border);position:sticky;top:0;backdrop-filter:saturate(120%) blur(6px);background:rgba(11,11,11,0.7);}
+    header {
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:18px 0; border-bottom:1px solid var(--border);
+      position:sticky; top:0; backdrop-filter:saturate(120%) blur(6px); background:rgba(11,11,11,0.7); z-index:50;
+    }
     .brand{display:flex;align-items:center;gap:12px;}
     .site-name{font-weight:700;font-size:20px;letter-spacing:.02em;line-height:1;}
     nav a{color:var(--muted);text-decoration:none;margin-left:16px;font-size:14px;}
     nav a:hover{color:var(--fg);}
 
-    /* Make anchored sections stop below the sticky header */
-#guides,
-#samples,
-#tools,
-#hardware,
-#reading {
-  scroll-margin-top: 80px; /* tweak to taste (60–100px) */
-}
+    /* Anchor offset so sticky header doesn’t cover the title */
+    .anchor { scroll-margin-top: calc(var(--header-h) + 20px); }
 
     /* Page layout */
     .hero{padding:40px 0 10px;}
     .title{font-size: clamp(28px, 5.5vw, 56px); line-height:1; letter-spacing:-.01em; margin:0;}
     .tag{color:var(--muted); font-size:15px; margin-top:10px; max-width:60ch;}
 
-    /* Subtle divider */
+    /* Divider */
     .section-divider { height:1px; margin:20px 0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent); }
 
     /* TOC */
@@ -47,7 +47,6 @@
     .controls{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0 10px;}
     @media (min-width:900px){ .controls{grid-template-columns:1fr auto;} }
 
-    .search-wrap{position:relative;}
     .search{width:100%; background:#121212; color:#f3f3f3; border:1px solid #2a2a2a; padding:10px 12px; border-radius:12px; font-size:14px;}
     .search::placeholder{color:#8a8a8a;}
 
@@ -57,7 +56,7 @@
     .pill:hover{border-color:#3a3a3a;}
     .pill.is-active{background:#fff;color:#111;border-color:#e6e6e6;}
 
-    /* Cards & lists */
+    /* Grid & cards */
     .grid{display:grid; gap:14px; margin-top:16px;}
     @media (min-width:900px){ .grid{grid-template-columns:1fr 1fr;} }
 
@@ -72,10 +71,8 @@
     .meta{font-size:12px; color:var(--muted);}
     .tagpill{display:inline-block; font-size:11px; color:#111; background:#fff; border:1px solid #e6e6e6; border-radius:999px; padding:2px 8px; margin-left:8px;}
 
-    /* Empty state */
     .empty{margin:24px 0 0; color:var(--muted); font-size:14px; text-align:center;}
 
-    /* Footer */
     footer{border-top:1px solid var(--border); margin-top:40px; padding:18px 0; color:var(--muted); font-size:12px;}
 
     .hidden{display:none !important;}
@@ -84,9 +81,7 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="brand">
-        <div class="site-name">EFM</div>
-      </div>
+      <div class="brand"><div class="site-name">EFM</div></div>
       <nav>
         <a href="/">Home</a>
         <a href="/radio">Radio</a>
@@ -112,11 +107,9 @@
         <a href="#reading">Reading</a>
       </nav>
 
-      <!-- Controls: Search + Filter pills -->
+      <!-- Controls -->
       <div class="controls">
-        <div class="search-wrap">
-          <input id="search" class="search" type="search" placeholder="Search titles, notes" />
-        </div>
+        <input id="search" class="search" type="search" placeholder="Search titles, notes" />
         <div class="filters">
           <span class="filter-label">Filter:</span>
           <button class="pill is-active" data-cat="">All</button>
@@ -130,8 +123,8 @@
 
       <section class="grid" id="resource-grid">
         <!-- Guides -->
-        <div class="card group" id="guides" data-section="guides">
-          <h2>Guides</h2>
+        <div class="card group" data-section="guides">
+          <h2 id="guides" class="anchor">Guides</h2>
           <ul class="list">
             <li class="item" data-cat="guides" data-text="parallel fx chains delay into reverb routing patchbay live studio">
               <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener">Parallel FX chains: delay → reverb without mud</a>
@@ -149,8 +142,8 @@
         </div>
 
         <!-- Sample Packs -->
-        <div class="card group" id="samples" data-section="samples">
-          <h2>Sample packs</h2>
+        <div class="card group" data-section="samples">
+          <h2 id="samples" class="anchor">Sample packs</h2>
           <ul class="list">
             <li class="item" data-cat="samples" data-text="efm pack 3 drums clicks clanks percussive hits textured tails">
               <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener">EFM Pack #3 — Drums, clicks, clanks</a>
@@ -164,8 +157,8 @@
         </div>
 
         <!-- Tools -->
-        <div class="card group" id="tools" data-section="tools">
-          <h2>Tools</h2>
+        <div class="card group" data-section="tools">
+          <h2 id="tools" class="anchor">Tools</h2>
           <ul class="list">
             <li class="item" data-cat="tools" data-text="reaper daw speed stability">
               <a href="https://www.reaper.fm/" target="_blank" rel="noopener">REAPER</a>
@@ -183,8 +176,8 @@
         </div>
 
         <!-- Hardware -->
-        <div class="card group" id="hardware" data-section="hardware">
-          <h2>Favorite gear</h2>
+        <div class="card group" data-section="hardware">
+          <h2 id="hardware" class="anchor">Favorite gear</h2>
           <ul class="list">
             <li class="item" data-cat="hardware" data-text="elektron octatrack performance sampler scenes crossfader">
               <a href="#" target="_blank" rel="noopener">Elektron Octatrack</a>
@@ -202,8 +195,8 @@
         </div>
 
         <!-- Reading / Links -->
-        <div class="card group" id="reading" data-section="reading" style="grid-column: 1 / -1;">
-          <h2>Reading & links</h2>
+        <div class="card group" data-section="reading" style="grid-column: 1 / -1;">
+          <h2 id="reading" class="anchor">Reading & links</h2>
           <ul class="list">
             <li class="item" data-cat="reading" data-text="musicdsp audio dsp algorithms notes">
               <a href="https://www.musicdsp.org/en/latest/" target="_blank" rel="noopener">MusicDSP</a>
@@ -234,111 +227,89 @@
     </footer>
   </div>
 
-  <!-- Filter + Search + URL state + TOC sync -->
   <script>
-    // year stamp
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const ALLOWED = ["", "guides", "samples", "tools", "hardware", "reading"];
-
     const pills   = Array.from(document.querySelectorAll('.pill'));
     const groups  = Array.from(document.querySelectorAll('.card.group'));
     const search  = document.getElementById('search');
     const empty   = document.getElementById('empty');
     const tocLinks = Array.from(document.querySelectorAll('.toc a'));
 
-    function getParam(name, fallback) {
-      const v = new URLSearchParams(location.search).get(name);
-      return (v === null || v === undefined) ? fallback : v;
-    }
-    function setParams(params) {
+    const getParam = (k, fb) => {
+      const v = new URLSearchParams(location.search).get(k);
+      return (v === null || v === undefined) ? fb : v;
+    };
+    const setParams = (obj) => {
       const u = new URL(location);
-      Object.entries(params).forEach(([k, v]) => {
-        if (!v) u.searchParams.delete(k);
-        else u.searchParams.set(k, v);
-      });
+      Object.entries(obj).forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
       history.replaceState(null, "", u);
-    }
-    function normalize(s) { return (s || "").toLowerCase(); }
+    };
+    const norm = (s) => (s || "").toLowerCase();
 
     function apply(cat, q) {
-      const query = normalize(q);
+      const query = norm(q);
       let anyShown = false;
 
-      // active pill state
       pills.forEach(p => p.classList.toggle('is-active', (p.dataset.cat || '') === cat));
+      tocLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${cat}`));
 
-      // TOC active state
-      tocLinks.forEach(link => {
-        const on = link.getAttribute('href') === `#${cat}`;
-        link.classList.toggle('is-active', on);
-      });
-
-      // per section
       groups.forEach(section => {
         const sectionType = section.getAttribute('data-section') || '';
         const items = Array.from(section.querySelectorAll('.item'));
-        let visibleInSection = 0;
-
+        let visible = 0;
         items.forEach(item => {
           const itemCat = item.getAttribute('data-cat') || '';
-          const text = normalize(item.getAttribute('data-text')) + " " + normalize(item.textContent);
-          const catMatch = !cat || itemCat === cat || sectionType === cat;
-          const qMatch   = !query || text.includes(query);
-
-          const show = catMatch && qMatch;
+          const text = norm(item.getAttribute('data-text')) + " " + norm(item.textContent);
+          const show = (!cat || itemCat === cat || sectionType === cat) && (!query || text.includes(query));
           item.classList.toggle('hidden', !show);
-          if (show) visibleInSection++;
+          if (show) visible++;
         });
-
-        // hide section if nothing visible inside
-        section.classList.toggle('hidden', visibleInSection === 0);
-        if (visibleInSection > 0) anyShown = true;
+        section.classList.toggle('hidden', visible === 0);
+        if (visible) anyShown = true;
       });
 
       empty.classList.toggle('hidden', anyShown);
     }
 
-    // Clicking a pill filters AND scrolls to the section (except All)
+    // Pills: filter + (if a cat) scroll to the heading
     pills.forEach(btn => {
       btn.addEventListener('click', () => {
         const cat = btn.dataset.cat || '';
         const q = search.value.trim();
         apply(cat, q);
         setParams({ cat, q });
-        if (cat) {
-          const sectionEl = document.getElementById(cat);
-          if (sectionEl) sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (cat) document.getElementById(cat)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    // Clicking a TOC link activates the matching pill (so filter + style stay in sync)
-    function activateCategory(cat) {
-      const targetPill = document.querySelector(`.pill[data-cat="${cat}"]`) || document.querySelector('.pill[data-cat=""]');
-      if (targetPill) targetPill.click();
-    }
+    // TOC: sync filter with section
     tocLinks.forEach(a => {
       a.addEventListener('click', (e) => {
-        // let the browser do the scroll, then sync filter state
-        const id = a.getAttribute('href')?.replace('#','') || '';
-        requestAnimationFrame(() => activateCategory(id));
+        const id = a.getAttribute('href')?.slice(1) || '';
+        // Let the browser scroll, then align filter state
+        requestAnimationFrame(() => {
+          const pill = document.querySelector(`.pill[data-cat="${id}"]`) || document.querySelector('.pill[data-cat=""]');
+          pill?.click();
+        });
       });
     });
 
-    // Search (tiny debounce)
+    // Search (debounced)
     let t = null;
     search.addEventListener('input', () => {
       clearTimeout(t);
       t = setTimeout(() => {
-        const cat = document.querySelector('.pill.is-active')?.getAttribute('data-cat') || '';
+        const cat = document.querySelector('.pill.is-active')?.dataset.cat || '';
         const q = search.value.trim();
         apply(cat, q);
         setParams({ cat, q });
       }, 120);
     });
 
-    // initial from URL
+    // Init from URL
     const initCat = ALLOWED.includes(getParam("cat", "")) ? getParam("cat", "") : "";
     const initQ   = getParam("q", "");
     search.value = initQ;
