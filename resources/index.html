@@ -9,6 +9,7 @@
   <style>
     :root { --bg:#0b0b0b; --fg:#f3f3f3; --muted:#bdbdbd; --card:#121212; --border:#2a2a2a; }
     * { box-sizing: border-box; } html, body { height:100%; }
+    html { scroll-behavior: smooth; }
     body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--fg); }
     .wrap { max-width:1100px; margin:0 auto; padding:24px; }
 
@@ -20,24 +21,21 @@
     nav a:hover{color:var(--fg);}
 
     /* Page layout */
-    .hero{padding:40px 0 16px;}
+    .hero{padding:40px 0 10px;}
     .title{font-size: clamp(28px, 5.5vw, 56px); line-height:1; letter-spacing:-.01em; margin:0;}
     .tag{color:var(--muted); font-size:15px; margin-top:10px; max-width:60ch;}
 
     /* Subtle divider */
-    .section-divider {
-      height:1px;
-      margin:24px 0;
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
-    }
+    .section-divider { height:1px; margin:20px 0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent); }
 
     /* TOC */
-    .toc { margin:16px 0 20px; font-size:14px; color:var(--muted); display:flex; flex-wrap:wrap; gap:12px; }
-    .toc a { color:var(--muted); text-decoration:none; }
-    .toc a:hover { color:var(--fg); text-decoration:underline; }
+    .toc { display:flex; gap:14px; flex-wrap:wrap; margin:10px 0 6px; }
+    .toc a { color:var(--muted); text-decoration:none; font-size:13px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:#0f0f0f; }
+    .toc a:hover { color:var(--fg); }
+    .toc a.is-active { color:#111; background:#fff; border-color:#e6e6e6; }
 
     /* Controls */
-    .controls{display:grid;grid-template-columns:1fr;gap:10px;margin:0 0 10px;}
+    .controls{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0 10px;}
     @media (min-width:900px){ .controls{grid-template-columns:1fr auto;} }
 
     .search-wrap{position:relative;}
@@ -94,7 +92,9 @@
         <p class="tag">Guides, sample packs, tools, hardware, and reading I actually use. Minimal, practical, updated over time.</p>
       </section>
 
-      <!-- TOC -->
+      <div class="section-divider"></div>
+
+      <!-- Tiny TOC -->
       <nav class="toc">
         <a href="#guides">Guides</a>
         <a href="#samples">Sample packs</a>
@@ -103,12 +103,10 @@
         <a href="#reading">Reading</a>
       </nav>
 
-      <div class="section-divider"></div>
-
       <!-- Controls: Search + Filter pills -->
       <div class="controls">
         <div class="search-wrap">
-          <input id="search" class="search" type="search" placeholder="Search titles, notes (press / to focus)" />
+          <input id="search" class="search" type="search" placeholder="Search titles, notes" />
         </div>
         <div class="filters">
           <span class="filter-label">Filter:</span>
@@ -123,7 +121,7 @@
 
       <section class="grid" id="resource-grid">
         <!-- Guides -->
-        <div id="guides" class="card group" data-section="guides">
+        <div class="card group" id="guides" data-section="guides">
           <h2>Guides</h2>
           <ul class="list">
             <li class="item" data-cat="guides" data-text="parallel fx chains delay into reverb routing patchbay live studio">
@@ -142,7 +140,7 @@
         </div>
 
         <!-- Sample Packs -->
-        <div id="samples" class="card group" data-section="samples">
+        <div class="card group" id="samples" data-section="samples">
           <h2>Sample packs</h2>
           <ul class="list">
             <li class="item" data-cat="samples" data-text="efm pack 3 drums clicks clanks percussive hits textured tails">
@@ -157,7 +155,7 @@
         </div>
 
         <!-- Tools -->
-        <div id="tools" class="card group" data-section="tools">
+        <div class="card group" id="tools" data-section="tools">
           <h2>Tools</h2>
           <ul class="list">
             <li class="item" data-cat="tools" data-text="reaper daw speed stability">
@@ -176,7 +174,7 @@
         </div>
 
         <!-- Hardware -->
-        <div id="hardware" class="card group" data-section="hardware">
+        <div class="card group" id="hardware" data-section="hardware">
           <h2>Favorite gear</h2>
           <ul class="list">
             <li class="item" data-cat="hardware" data-text="elektron octatrack performance sampler scenes crossfader">
@@ -195,7 +193,7 @@
         </div>
 
         <!-- Reading / Links -->
-        <div id="reading" class="card group" data-section="reading" style="grid-column: 1 / -1;">
+        <div class="card group" id="reading" data-section="reading" style="grid-column: 1 / -1;">
           <h2>Reading & links</h2>
           <ul class="list">
             <li class="item" data-cat="reading" data-text="musicdsp audio dsp algorithms notes">
@@ -227,16 +225,18 @@
     </footer>
   </div>
 
-  <!-- Filter + Search + URL state -->
+  <!-- Filter + Search + URL state + TOC sync -->
   <script>
+    // year stamp
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const ALLOWED = ["", "guides", "samples", "tools", "hardware", "reading"];
 
-    const pills  = Array.from(document.querySelectorAll('.pill'));
-    const groups = Array.from(document.querySelectorAll('.card.group'));
-    const search = document.getElementById('search');
-    const empty  = document.getElementById('empty');
+    const pills   = Array.from(document.querySelectorAll('.pill'));
+    const groups  = Array.from(document.querySelectorAll('.card.group'));
+    const search  = document.getElementById('search');
+    const empty   = document.getElementById('empty');
+    const tocLinks = Array.from(document.querySelectorAll('.toc a'));
 
     function getParam(name, fallback) {
       const v = new URLSearchParams(location.search).get(name);
@@ -250,17 +250,20 @@
       });
       history.replaceState(null, "", u);
     }
-
-    function normalize(s) {
-      return (s || "").toLowerCase();
-    }
+    function normalize(s) { return (s || "").toLowerCase(); }
 
     function apply(cat, q) {
       const query = normalize(q);
       let anyShown = false;
 
-      // set active pills
+      // active pill state
       pills.forEach(p => p.classList.toggle('is-active', (p.dataset.cat || '') === cat));
+
+      // TOC active state
+      tocLinks.forEach(link => {
+        const on = link.getAttribute('href') === `#${cat}`;
+        link.classList.toggle('is-active', on);
+      });
 
       // per section
       groups.forEach(section => {
@@ -287,21 +290,51 @@
       empty.classList.toggle('hidden', anyShown);
     }
 
-    // hook pills
+    // Clicking a pill filters AND scrolls to the section (except All)
     pills.forEach(btn => {
       btn.addEventListener('click', () => {
         const cat = btn.dataset.cat || '';
         const q = search.value.trim();
         apply(cat, q);
         setParams({ cat, q });
+        if (cat) {
+          const sectionEl = document.getElementById(cat);
+          if (sectionEl) sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
 
-    // hook search (with tiny debounce)
+    // Clicking a TOC link activates the matching pill (so filter + style stay in sync)
+    function activateCategory(cat) {
+      const targetPill = document.querySelector(`.pill[data-cat="${cat}"]`) || document.querySelector('.pill[data-cat=""]');
+      if (targetPill) targetPill.click();
+    }
+    tocLinks.forEach(a => {
+      a.addEventListener('click', (e) => {
+        // let the browser do the scroll, then sync filter state
+        const id = a.getAttribute('href')?.replace('#','') || '';
+        requestAnimationFrame(() => activateCategory(id));
+      });
+    });
+
+    // Search (tiny debounce)
     let t = null;
     search.addEventListener('input', () => {
       clearTimeout(t);
       t = setTimeout(() => {
         const cat = document.querySelector('.pill.is-active')?.getAttribute('data-cat') || '';
-        const q
+        const q = search.value.trim();
+        apply(cat, q);
+        setParams({ cat, q });
+      }, 120);
+    });
 
+    // initial from URL
+    const initCat = ALLOWED.includes(getParam("cat", "")) ? getParam("cat", "") : "";
+    const initQ   = getParam("q", "");
+    search.value = initQ;
+    apply(initCat, initQ);
+    setParams({ cat: initCat, q: initQ });
+  </script>
+</body>
+</html>
