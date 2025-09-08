@@ -20,6 +20,15 @@
     nav a{color:var(--muted);text-decoration:none;margin-left:16px;font-size:14px;}
     nav a:hover{color:var(--fg);}
 
+    /* Make anchored sections stop below the sticky header */
+#guides,
+#samples,
+#tools,
+#hardware,
+#reading {
+  scroll-margin-top: 80px; /* tweak to taste (60–100px) */
+}
+
     /* Page layout */
     .hero{padding:40px 0 10px;}
     .title{font-size: clamp(28px, 5.5vw, 56px); line-height:1; letter-spacing:-.01em; margin:0;}
