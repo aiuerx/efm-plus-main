@@ -77,23 +77,26 @@
 
     .hidden{display:none !important;}
 
-    /* Getting Started (compact callout) */
-    .callout {
+    /* Getting Started (compact via <details>) */
+    details.callout {
       border:1px solid var(--border);
       border-radius:12px;
       background:#0f0f0f;
       padding:10px 12px;
       margin:10px 0 6px;
     }
-    .callout-header {
+    details.callout > summary {
       display:flex; align-items:center; gap:8px; cursor:pointer;
-      font-size:14px; color:var(--fg);
+      font-size:14px; color:var(--fg); list-style:none;
     }
-    .callout-header .chev {transition:transform .15s ease; font-size:12px; color:var(--muted);}
-    .callout[aria-expanded="true"] .chev { transform:rotate(90deg); }
+    /* Hide default marker (keeps it accessible) */
+    details.callout > summary::-webkit-details-marker { display:none; }
+    details.callout > summary::marker { content:""; }
+    .callout .chev { transition:transform .15s ease; font-size:12px; color:var(--muted); }
+    details.callout[open] .chev { transform:rotate(90deg); }
     .callout-sub { color:var(--muted); font-size:13px; margin-left:auto; }
     .callout-body { display:none; margin-top:10px; }
-    .callout[aria-expanded="true"] .callout-body { display:block; }
+    details.callout[open] .callout-body { display:block; }
   </style>
 </head>
 <body>
@@ -139,13 +142,13 @@
         </div>
       </div>
 
-      <!-- Getting Started (compact, collapsed by default, not tied to filters) -->
-      <section class="callout" id="getting-started" aria-expanded="false">
-        <div class="callout-header" id="gs-toggle">
+      <!-- Getting Started (compact, collapsible, not tied to filters) -->
+      <details class="callout" id="getting-started">
+        <summary>
           <span class="chev">▶</span>
           <strong>New? Start here</strong>
           <span class="callout-sub">Synths, modular, Ableton, studio wiring</span>
-        </div>
+        </summary>
         <div class="callout-body">
           <ul class="list">
             <li class="item">
@@ -178,7 +181,7 @@
             </li>
           </ul>
         </div>
-      </section>
+      </details>
 
       <section class="grid" id="resource-grid">
         <!-- Guides -->
@@ -313,4 +316,80 @@
       let anyShown = false;
 
       pills.forEach(p => p.classList.toggle('is-active', (p.dataset.cat || '') === cat));
-      tocLinks.forEach(link => link.classList.toggle('
+      tocLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${cat}`));
+
+      groups.forEach(section => {
+        const sectionType = section.getAttribute('data-section') || '';
+        const items = Array.from(section.querySelectorAll('.item'));
+        let visible = 0;
+        items.forEach(item => {
+          const itemCat = item.getAttribute('data-cat') || '';
+          const text = norm(item.getAttribute('data-text')) + " " + norm(item.textContent);
+          const show = (!cat || itemCat === cat || sectionType === cat) && (!query || text.includes(query));
+          item.classList.toggle('hidden', !show);
+          if (show) visible++;
+        });
+        section.classList.toggle('hidden', visible === 0);
+        if (visible) anyShown = true;
+      });
+
+      empty.classList.toggle('hidden', anyShown);
+    }
+
+    // Pills: filter + (if a cat) scroll to the heading
+    pills.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat || '';
+        const q = search.value.trim();
+        apply(cat, q);
+        setParams({ cat, q });
+        if (cat) document.getElementById(cat)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // TOC: sync filter with section
+    tocLinks.forEach(a => {
+      a.addEventListener('click', () => {
+        const id = a.getAttribute('href')?.slice(1) || '';
+        requestAnimationFrame(() => {
+          const pill = document.querySelector(`.pill[data-cat="${id}"]`) || document.querySelector('.pill[data-cat=""]');
+          pill?.click();
+        });
+      });
+    });
+
+    // Search (debounced)
+    let t = null;
+    search.addEventListener('input', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const cat = document.querySelector('.pill.is-active')?.dataset.cat || '';
+        const q = search.value.trim();
+        apply(cat, q);
+        setParams({ cat, q });
+      }, 120);
+    });
+
+    // Init from URL
+    const initCat = ALLOWED.includes(getParam("cat", "")) ? getParam("cat", "") : "";
+    const initQ   = getParam("q", "");
+    search.value = initQ;
+    apply(initCat, initQ);
+    setParams({ cat: initCat, q: initQ });
+
+    // Remember Getting Started open/closed (progressive enhancement)
+    (function(){
+      const key = 'efm:getting-started:open';
+      const el = document.getElementById('getting-started');
+      if (!el) return;
+      try {
+        const saved = localStorage.getItem(key);
+        if (saved === '1') el.setAttribute('open', 'open');
+        el.addEventListener('toggle', () => {
+          localStorage.setItem(key, el.open ? '1' : '0');
+        });
+      } catch(_) { /* ignore storage errors */ }
+    })();
+  </script>
+</body>
+</html>
