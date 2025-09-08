@@ -77,23 +77,23 @@
 
     .hidden{display:none !important;}
 
-    /* Featured: Getting Started */
-    .getting-started {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin: 18px 0 10px;
+    /* Getting Started (compact callout) */
+    .callout {
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#0f0f0f;
+      padding:10px 12px;
+      margin:10px 0 6px;
     }
-    .getting-started h2 {
-      margin: 0 0 6px;
-      font-size: 18px;
+    .callout-header {
+      display:flex; align-items:center; gap:8px; cursor:pointer;
+      font-size:14px; color:var(--fg);
     }
-    .getting-started p {
-      color: var(--muted);
-      margin: 0 0 12px;
-      line-height: 1.6;
-    }
+    .callout-header .chev {transition:transform .15s ease; font-size:12px; color:var(--muted);}
+    .callout[aria-expanded="true"] .chev { transform:rotate(90deg); }
+    .callout-sub { color:var(--muted); font-size:13px; margin-left:auto; }
+    .callout-body { display:none; margin-top:10px; }
+    .callout[aria-expanded="true"] .callout-body { display:block; }
   </style>
 </head>
 <body>
@@ -115,42 +115,6 @@
       </section>
 
       <div class="section-divider"></div>
-
-      <!-- 🚀 Getting Started (featured, always first, not tied to filters) -->
-      <section class="getting-started" id="getting-started">
-        <h2>🚀 Getting Started</h2>
-        <p>Before diving into deep archives and advanced tools, here are the essentials: how to use synths, modular gear, Ableton, and wire a studio.</p>
-        <ul class="list">
-          <li class="item">
-            <a href="https://learningsynths.ableton.com" target="_blank" rel="noopener">Ableton’s Learning Synths</a>
-            <div class="meta">Interactive browser-based intro: oscillators, filters, envelopes <span class="tagpill">beginner</span></div>
-          </li>
-          <li class="item">
-            <a href="https://www.soundonsound.com/techniques/synthesizing-basics" target="_blank" rel="noopener">Synth Basics (Sound On Sound)</a>
-            <div class="meta">Classic primer on subtractive synthesis <span class="tagpill">reading</span></div>
-          </li>
-          <li class="item">
-            <a href="https://www.youtube.com/playlist?list=PLoh4MB-kbBmE4Zp3b1xq7i1WzWmVh0z0Z" target="_blank" rel="noopener">Ableton Live 101 (Official YouTube)</a>
-            <div class="meta">Beginner series for working in Live <span class="tagpill">video</span></div>
-          </li>
-          <li class="item">
-            <a href="https://www.youtube.com/watch?v=TYhK1zW55V4" target="_blank" rel="noopener">Loopop: Intro to Modular</a>
-            <div class="meta">Signal flow, modules, and patching explained <span class="tagpill">video</span></div>
-          </li>
-          <li class="item">
-            <a href="https://www.youtube.com/@LearningModular" target="_blank" rel="noopener">Learning Modular (Chris Meyer)</a>
-            <div class="meta">Step-by-step YouTube tutorials for modular beginners <span class="tagpill">video</span></div>
-          </li>
-          <li class="item">
-            <a href="https://bjooks.com/products/patch-tweak" target="_blank" rel="noopener">Patch &amp; Tweak (Book)</a>
-            <div class="meta">Illustrated guide to modular synthesis <span class="tagpill">book</span></div>
-          </li>
-          <li class="item">
-            <a href="https://www.soundonsound.com/techniques/choosing-using-cables" target="_blank" rel="noopener">Wiring a Home Studio (Sound On Sound)</a>
-            <div class="meta">Cables, connections, and grounding basics <span class="tagpill">studio</span></div>
-          </li>
-        </ul>
-      </section>
 
       <!-- Tiny TOC -->
       <nav class="toc">
@@ -174,6 +138,47 @@
           <button class="pill" data-cat="reading">Reading</button>
         </div>
       </div>
+
+      <!-- Getting Started (compact, collapsed by default, not tied to filters) -->
+      <section class="callout" id="getting-started" aria-expanded="false">
+        <div class="callout-header" id="gs-toggle">
+          <span class="chev">▶</span>
+          <strong>New? Start here</strong>
+          <span class="callout-sub">Synths, modular, Ableton, studio wiring</span>
+        </div>
+        <div class="callout-body">
+          <ul class="list">
+            <li class="item">
+              <a href="https://learningsynths.ableton.com" target="_blank" rel="noopener">Ableton’s Learning Synths</a>
+              <div class="meta">Oscillators, filters, envelopes <span class="tagpill">beginner</span></div>
+            </li>
+            <li class="item">
+              <a href="https://www.soundonsound.com/techniques/synthesizing-basics" target="_blank" rel="noopener">Synth Basics (Sound On Sound)</a>
+              <div class="meta">Primer on subtractive synthesis <span class="tagpill">reading</span></div>
+            </li>
+            <li class="item">
+              <a href="https://www.youtube.com/playlist?list=PLoh4MB-kbBmE4Zp3b1xq7i1WzWmVh0z0Z" target="_blank" rel="noopener">Ableton Live 101 (Official YouTube)</a>
+              <div class="meta">Beginner series for Live <span class="tagpill">video</span></div>
+            </li>
+            <li class="item">
+              <a href="https://www.youtube.com/watch?v=TYhK1zW55V4" target="_blank" rel="noopener">Loopop: Intro to Modular</a>
+              <div class="meta">Signal flow & patching <span class="tagpill">video</span></div>
+            </li>
+            <li class="item">
+              <a href="https://www.youtube.com/@LearningModular" target="_blank" rel="noopener">Learning Modular (Chris Meyer)</a>
+              <div class="meta">Step-by-step modular basics <span class="tagpill">video</span></div>
+            </li>
+            <li class="item">
+              <a href="https://bjooks.com/products/patch-tweak" target="_blank" rel="noopener">Patch &amp; Tweak (Book)</a>
+              <div class="meta">Illustrated overview of modular <span class="tagpill">book</span></div>
+            </li>
+            <li class="item">
+              <a href="https://www.soundonsound.com/techniques/choosing-using-cables" target="_blank" rel="noopener">Wiring a Home Studio (Sound On Sound)</a>
+              <div class="meta">Cables, connections, grounding <span class="tagpill">studio</span></div>
+            </li>
+          </ul>
+        </div>
+      </section>
 
       <section class="grid" id="resource-grid">
         <!-- Guides -->
@@ -308,67 +313,4 @@
       let anyShown = false;
 
       pills.forEach(p => p.classList.toggle('is-active', (p.dataset.cat || '') === cat));
-      tocLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${cat}`));
-
-      groups.forEach(section => {
-        const sectionType = section.getAttribute('data-section') || '';
-        const items = Array.from(section.querySelectorAll('.item'));
-        let visible = 0;
-        items.forEach(item => {
-          const itemCat = item.getAttribute('data-cat') || '';
-          const text = norm(item.getAttribute('data-text')) + " " + norm(item.textContent);
-          const show = (!cat || itemCat === cat || sectionType === cat) && (!query || text.includes(query));
-          item.classList.toggle('hidden', !show);
-          if (show) visible++;
-        });
-        section.classList.toggle('hidden', visible === 0);
-        if (visible) anyShown = true;
-      });
-
-      empty.classList.toggle('hidden', anyShown);
-    }
-
-    // Pills: filter + (if a cat) scroll to the heading
-    pills.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cat = btn.dataset.cat || '';
-        const q = search.value.trim();
-        apply(cat, q);
-        setParams({ cat, q });
-        if (cat) document.getElementById(cat)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // TOC: sync filter with section
-    tocLinks.forEach(a => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href')?.slice(1) || '';
-        // Let the browser scroll, then align filter state
-        requestAnimationFrame(() => {
-          const pill = document.querySelector(`.pill[data-cat="${id}"]`) || document.querySelector('.pill[data-cat=""]');
-          pill?.click();
-        });
-      });
-    });
-
-    // Search (debounced)
-    let t = null;
-    search.addEventListener('input', () => {
-      clearTimeout(t);
-      t = setTimeout(() => {
-        const cat = document.querySelector('.pill.is-active')?.dataset.cat || '';
-        const q = search.value.trim();
-        apply(cat, q);
-        setParams({ cat, q });
-      }, 120);
-    });
-
-    // Init from URL
-    const initCat = ALLOWED.includes(getParam("cat", "")) ? getParam("cat", "") : "";
-    const initQ   = getParam("q", "");
-    search.value = initQ;
-    apply(initCat, initQ);
-    setParams({ cat: initCat, q: initQ });
-  </script>
-</body>
-</html>
+      tocLinks.forEach(link => link.classList.toggle('
