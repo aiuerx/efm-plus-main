@@ -9,7 +9,6 @@
   <style>
     :root {
       --bg:#0b0b0b; --fg:#f3f3f3; --muted:#bdbdbd; --card:#121212; --border:#2a2a2a; --header-h:66px;
-      --accent:#39ff14; /* neon green highlight */
     }
 
     * { box-sizing: border-box; }
@@ -80,37 +79,37 @@
 
     .hidden{display:none !important;}
 
-    /* Getting Started (compact via <details>) — ACCENTED */
+    /* Getting Started (compact via <details>) — neutral highlight */
     details.callout {
+      position:relative;
       border:1px solid var(--border);
-      border-left:4px solid var(--accent);
       border-radius:12px;
       background:#111;
-      padding:12px 14px;
+      padding:12px 14px 12px 16px;
       margin:14px 0;
     }
+    details.callout::before {
+      content:"";
+      position:absolute; left:0; top:0; bottom:0; width:3px;
+      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      border-radius:12px 0 0 12px;
+    }
     details.callout > summary {
-      display:flex; align-items:center; gap:8px; cursor:pointer;
-      font-size:14px; color:var(--fg); list-style:none;
+      display:flex; align-items:center; gap:8px; cursor:pointer; list-style:none;
+      font-size:14px; color:var(--fg);
       padding:6px 10px;
       border-radius:8px;
-      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      background: rgba(255,255,255,.04);
+      transition: background .15s ease;
     }
-    /* Safari/FF default marker off */
     details.callout > summary::-webkit-details-marker { display:none; }
     details.callout > summary::marker { content:""; }
+    details.callout > summary:hover { background: rgba(255,255,255,.06); }
+    details.callout > summary:focus-visible { outline:2px solid #e6e6e6; outline-offset:2px; }
 
     .callout .chev { transition:transform .15s ease; font-size:12px; color:var(--muted); }
     details.callout[open] .chev { transform:rotate(90deg); }
-
     .callout-sub { color:var(--muted); font-size:13px; margin-left:auto; }
-    details.callout > summary:hover {
-      background: color-mix(in srgb, var(--accent) 18%, transparent);
-    }
-    details.callout > summary:focus-visible {
-      outline:2px solid var(--accent);
-      outline-offset:2px;
-    }
 
     .callout-body { display:none; margin-top:10px; }
     details.callout[open] .callout-body { display:block; }
