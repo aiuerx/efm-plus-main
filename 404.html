@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 — EFM</title>
+  <meta name="theme-color" content="#0a0a0a" />
+  <style>
+    :root { --bg:#0b0b0b; --fg:#f3f3f3; --muted:#bdbdbd; }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
+      background:var(--bg); color:var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+      text-align:center; padding:20px;
+    }
+    h1 { font-size: clamp(48px, 8vw, 88px); margin:0; line-height:1; }
+    p  { color:var(--muted); margin:16px 0 28px; font-size:16px; }
+    a {
+      display:inline-block; background:#fff; color:#111; padding:10px 16px;
+      border-radius:12px; font-size:14px; font-weight:600; text-decoration:none;
+      border:1px solid #e6e6e6;
+      transition: filter .15s, transform .02s;
+    }
+    a:hover { filter:brightness(.96); transform:translateY(-1px); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>404</h1>
+    <p>This page doesn’t exist.<br/>Try heading back to the main site.</p>
+    <a href="/">← Back to EFM</a>
+  </main>
+</body>
+</html>
