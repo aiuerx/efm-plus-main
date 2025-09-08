@@ -31,6 +31,11 @@
       background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
     }
 
+    /* TOC */
+    .toc { margin:16px 0 20px; font-size:14px; color:var(--muted); display:flex; flex-wrap:wrap; gap:12px; }
+    .toc a { color:var(--muted); text-decoration:none; }
+    .toc a:hover { color:var(--fg); text-decoration:underline; }
+
     /* Controls */
     .controls{display:grid;grid-template-columns:1fr;gap:10px;margin:0 0 10px;}
     @media (min-width:900px){ .controls{grid-template-columns:1fr auto;} }
@@ -89,12 +94,21 @@
         <p class="tag">Guides, sample packs, tools, hardware, and reading I actually use. Minimal, practical, updated over time.</p>
       </section>
 
+      <!-- TOC -->
+      <nav class="toc">
+        <a href="#guides">Guides</a>
+        <a href="#samples">Sample packs</a>
+        <a href="#tools">Tools</a>
+        <a href="#hardware">Hardware</a>
+        <a href="#reading">Reading</a>
+      </nav>
+
       <div class="section-divider"></div>
 
       <!-- Controls: Search + Filter pills -->
       <div class="controls">
         <div class="search-wrap">
-          <input id="search" class="search" type="search" placeholder="Search titles, notes" />
+          <input id="search" class="search" type="search" placeholder="Search titles, notes (press / to focus)" />
         </div>
         <div class="filters">
           <span class="filter-label">Filter:</span>
@@ -109,7 +123,7 @@
 
       <section class="grid" id="resource-grid">
         <!-- Guides -->
-        <div class="card group" data-section="guides">
+        <div id="guides" class="card group" data-section="guides">
           <h2>Guides</h2>
           <ul class="list">
             <li class="item" data-cat="guides" data-text="parallel fx chains delay into reverb routing patchbay live studio">
@@ -128,7 +142,7 @@
         </div>
 
         <!-- Sample Packs -->
-        <div class="card group" data-section="samples">
+        <div id="samples" class="card group" data-section="samples">
           <h2>Sample packs</h2>
           <ul class="list">
             <li class="item" data-cat="samples" data-text="efm pack 3 drums clicks clanks percussive hits textured tails">
@@ -143,7 +157,7 @@
         </div>
 
         <!-- Tools -->
-        <div class="card group" data-section="tools">
+        <div id="tools" class="card group" data-section="tools">
           <h2>Tools</h2>
           <ul class="list">
             <li class="item" data-cat="tools" data-text="reaper daw speed stability">
@@ -162,7 +176,7 @@
         </div>
 
         <!-- Hardware -->
-        <div class="card group" data-section="hardware">
+        <div id="hardware" class="card group" data-section="hardware">
           <h2>Favorite gear</h2>
           <ul class="list">
             <li class="item" data-cat="hardware" data-text="elektron octatrack performance sampler scenes crossfader">
@@ -181,7 +195,7 @@
         </div>
 
         <!-- Reading / Links -->
-        <div class="card group" data-section="reading" style="grid-column: 1 / -1;">
+        <div id="reading" class="card group" data-section="reading" style="grid-column: 1 / -1;">
           <h2>Reading & links</h2>
           <ul class="list">
             <li class="item" data-cat="reading" data-text="musicdsp audio dsp algorithms notes">
@@ -289,18 +303,5 @@
       clearTimeout(t);
       t = setTimeout(() => {
         const cat = document.querySelector('.pill.is-active')?.getAttribute('data-cat') || '';
-        const q = search.value.trim();
-        apply(cat, q);
-        setParams({ cat, q });
-      }, 120);
-    });
+        const q
 
-    // initial from URL
-    const initCat = ALLOWED.includes(getParam("cat", "")) ? getParam("cat", "") : "";
-    const initQ   = getParam("q", "");
-    search.value = initQ;
-    apply(initCat, initQ);
-    setParams({ cat: initCat, q: initQ });
-  </script>
-</body>
-</html>
