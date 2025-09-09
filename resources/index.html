@@ -37,12 +37,6 @@
     /* Divider */
     .section-divider { height:1px; margin:20px 0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent); }
 
-    /* TOC */
-    .toc { display:flex; gap:14px; flex-wrap:wrap; margin:10px 0 6px; }
-    .toc a { color:var(--muted); text-decoration:none; font-size:13px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:#0f0f0f; }
-    .toc a:hover { color:var(--fg); }
-    .toc a.is-active { color:#111; background:#fff; border-color:#e6e6e6; }
-
     /* Controls */
     .controls{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0 10px;}
     @media (min-width:900px){ .controls{grid-template-columns:1fr auto;} }
@@ -115,26 +109,17 @@
 
       <div class="section-divider"></div>
 
-      <!-- Tiny TOC -->
-      <nav class="toc">
-        <a href="#guides">Guides</a>
-        <a href="#samples">Sample packs</a>
-        <a href="#tools">Tools</a>
-        <a href="#hardware">Hardware</a>
-        <a href="#reading">Reading</a>
-      </nav>
-
-      <!-- Controls -->
+      <!-- Controls (single source of truth for category state) -->
       <div class="controls">
         <input id="search" class="search" type="search" placeholder="Search titles, notes" />
-        <div class="filters">
-          <span class="filter-label">Filter:</span>
-          <button class="pill is-active" data-cat="">All</button>
-          <button class="pill" data-cat="guides">Guides</button>
-          <button class="pill" data-cat="samples">Sample packs</button>
-          <button class="pill" data-cat="tools">Tools</button>
-          <button class="pill" data-cat="hardware">Hardware</button>
-          <button class="pill" data-cat="reading">Reading</button>
+        <div class="filters" role="tablist" aria-label="Categories">
+          <span class="filter-label">Category:</span>
+          <button class="pill is-active" data-cat="" role="tab" aria-selected="true">All</button>
+          <button class="pill" data-cat="guides" role="tab" aria-selected="false">Guides</button>
+          <button class="pill" data-cat="samples" role="tab" aria-selected="false">Sample packs</button>
+          <button class="pill" data-cat="tools" role="tab" aria-selected="false">Tools</button>
+          <button class="pill" data-cat="hardware" role="tab" aria-selected="false">Hardware</button>
+          <button class="pill" data-cat="reading" role="tab" aria-selected="false">Reading</button>
         </div>
       </div>
 
@@ -296,7 +281,6 @@
     const groups  = Array.from(document.querySelectorAll('.card.group'));
     const search  = document.getElementById('search');
     const empty   = document.getElementById('empty');
-    const tocLinks = Array.from(document.querySelectorAll('.toc a'));
 
     const getParam = (k, fb) => {
       const v = new URLSearchParams(location.search).get(k);
@@ -304,7 +288,7 @@
     };
     const setParams = (obj) => {
       const u = new URL(location);
-      Object.entries(obj).forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
+      Object.entries(obj).forEach(([k, v]) => (v !== undefined && v !== null) ? (v === "" ? u.searchParams.delete(k) : u.searchParams.set(k, v)) : u.searchParams.delete(k));
       history.replaceState(null, "", u);
     };
     const norm = (s) => (s || "").toLowerCase();
@@ -313,9 +297,14 @@
       const query = norm(q);
       let anyShown = false;
 
-      pills.forEach(p => p.classList.toggle('is-active', (p.dataset.cat || '') === cat));
-      tocLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${cat}`));
+      // tabs
+      pills.forEach(p => {
+        const active = (p.dataset.cat || '') === cat;
+        p.classList.toggle('is-active', active);
+        p.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
 
+      // sections & items
       groups.forEach(section => {
         const sectionType = section.getAttribute('data-section') || '';
         const items = Array.from(section.querySelectorAll('.item'));
@@ -334,7 +323,7 @@
       empty.classList.toggle('hidden', anyShown);
     }
 
-    // Pills: filter + (if a cat) scroll to the heading
+    // Tabs: filter + (if a cat) scroll to its section heading
     pills.forEach(btn => {
       btn.addEventListener('click', () => {
         const cat = btn.dataset.cat || '';
@@ -342,17 +331,7 @@
         apply(cat, q);
         setParams({ cat, q });
         if (cat) document.getElementById(cat)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // TOC: sync filter with section
-    tocLinks.forEach(a => {
-      a.addEventListener('click', () => {
-        const id = a.getAttribute('href')?.slice(1) || '';
-        requestAnimationFrame(() => {
-          const pill = document.querySelector(`.pill[data-cat="${id}"]`) || document.querySelector('.pill[data-cat=""]');
-          pill?.click();
-        });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
 
