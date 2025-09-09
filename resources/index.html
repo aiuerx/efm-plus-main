@@ -7,9 +7,7 @@
   <meta name="description" content="EFM resources: guides, sample packs, tools, hardware, and reading." />
   <meta name="theme-color" content="#0a0a0a" />
   <style>
-    :root {
-      --bg:#0b0b0b; --fg:#f3f3f3; --muted:#bdbdbd; --card:#121212; --border:#2a2a2a; --header-h:66px;
-    }
+    :root { --bg:#0b0b0b; --fg:#f3f3f3; --muted:#bdbdbd; --card:#121212; --border:#2a2a2a; --header-h:66px; }
 
     * { box-sizing: border-box; }
     html, body { height:100%; }
@@ -79,40 +77,36 @@
 
     .hidden{display:none !important;}
 
-    /* Getting Started (compact via <details>) — neutral highlight */
+    /* Getting Started (compact via <details>) — minimal/typographic */
     details.callout {
-      position:relative;
       border:1px solid var(--border);
       border-radius:12px;
-      background:#111;
-      padding:12px 14px 12px 16px;
-      margin:14px 0;
-    }
-    details.callout::before {
-      content:"";
-      position:absolute; left:0; top:0; bottom:0; width:3px;
-      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
-      border-radius:12px 0 0 12px;
+      background:transparent;
+      padding:8px 12px;
+      margin:16px 0;
     }
     details.callout > summary {
       display:flex; align-items:center; gap:8px; cursor:pointer; list-style:none;
-      font-size:14px; color:var(--fg);
-      padding:6px 10px;
-      border-radius:8px;
-      background: rgba(255,255,255,.04);
-      transition: background .15s ease;
+      font-size:14px; color:var(--fg); font-weight:600;
+      padding:4px 0;
     }
     details.callout > summary::-webkit-details-marker { display:none; }
     details.callout > summary::marker { content:""; }
-    details.callout > summary:hover { background: rgba(255,255,255,.06); }
-    details.callout > summary:focus-visible { outline:2px solid #e6e6e6; outline-offset:2px; }
-
     .callout .chev { transition:transform .15s ease; font-size:12px; color:var(--muted); }
     details.callout[open] .chev { transform:rotate(90deg); }
     .callout-sub { color:var(--muted); font-size:13px; margin-left:auto; }
 
-    .callout-body { display:none; margin-top:10px; }
+    .callout-body { display:none; margin-top:6px; }
     details.callout[open] .callout-body { display:block; }
+
+    /* Inline link list */
+    .gs-links { display:flex; flex-wrap:wrap; gap:8px 14px; padding:0; margin:6px 0 2px; list-style:none; }
+    .gs-links li { display:inline; }
+    .gs-links a {
+      color:var(--fg); text-decoration:none; border-bottom:1px dotted #3a3a3a; padding-bottom:1px;
+    }
+    .gs-links a:hover { border-bottom-color:#8a8a8a; }
+    .gs-sep { color:var(--muted); }
   </style>
 </head>
 <body>
@@ -158,7 +152,7 @@
         </div>
       </div>
 
-      <!-- Getting Started (compact, collapsible, not tied to filters) -->
+      <!-- Getting Started (compact, collapsible, minimal) -->
       <details class="callout" id="getting-started">
         <summary>
           <span class="chev">▶</span>
@@ -166,35 +160,20 @@
           <span class="callout-sub">Synths, modular, Ableton, studio wiring</span>
         </summary>
         <div class="callout-body">
-          <ul class="list">
-            <li class="item">
-              <a href="https://learningsynths.ableton.com" target="_blank" rel="noopener">Ableton’s Learning Synths</a>
-              <div class="meta">Oscillators, filters, envelopes <span class="tagpill">beginner</span></div>
-            </li>
-            <li class="item">
-              <a href="https://www.soundonsound.com/techniques/synthesizing-basics" target="_blank" rel="noopener">Synth Basics (Sound On Sound)</a>
-              <div class="meta">Primer on subtractive synthesis <span class="tagpill">reading</span></div>
-            </li>
-            <li class="item">
-              <a href="https://www.youtube.com/playlist?list=PLoh4MB-kbBmE4Zp3b1xq7i1WzWmVh0z0Z" target="_blank" rel="noopener">Ableton Live 101 (Official YouTube)</a>
-              <div class="meta">Beginner series for Live <span class="tagpill">video</span></div>
-            </li>
-            <li class="item">
-              <a href="https://www.youtube.com/watch?v=TYhK1zW55V4" target="_blank" rel="noopener">Loopop: Intro to Modular</a>
-              <div class="meta">Signal flow & patching <span class="tagpill">video</span></div>
-            </li>
-            <li class="item">
-              <a href="https://www.youtube.com/@LearningModular" target="_blank" rel="noopener">Learning Modular (Chris Meyer)</a>
-              <div class="meta">Step-by-step modular basics <span class="tagpill">video</span></div>
-            </li>
-            <li class="item">
-              <a href="https://bjooks.com/products/patch-tweak" target="_blank" rel="noopener">Patch &amp; Tweak (Book)</a>
-              <div class="meta">Illustrated overview of modular <span class="tagpill">book</span></div>
-            </li>
-            <li class="item">
-              <a href="https://www.soundonsound.com/techniques/choosing-using-cables" target="_blank" rel="noopener">Wiring a Home Studio (Sound On Sound)</a>
-              <div class="meta">Cables, connections, grounding <span class="tagpill">studio</span></div>
-            </li>
+          <ul class="gs-links">
+            <li><a href="https://learningsynths.ableton.com" target="_blank" rel="noopener">Ableton’s Learning Synths</a></li>
+            <span class="gs-sep">•</span>
+            <li><a href="https://www.soundonsound.com/techniques/synthesizing-basics" target="_blank" rel="noopener">Synth Basics (Sound On Sound)</a></li>
+            <span class="gs-sep">•</span>
+            <li><a href="https://www.youtube.com/playlist?list=PLoh4MB-kbBmE4Zp3b1xq7i1WzWmVh0z0Z" target="_blank" rel="noopener">Ableton Live 101 (YouTube)</a></li>
+            <span class="gs-sep">•</span>
+            <li><a href="https://www.youtube.com/watch?v=TYhK1zW55V4" target="_blank" rel="noopener">Loopop: Intro to Modular</a></li>
+            <span class="gs-sep">•</span>
+            <li><a href="https://www.youtube.com/@LearningModular" target="_blank" rel="noopener">Learning Modular (Chris Meyer)</a></li>
+            <span class="gs-sep">•</span>
+            <li><a href="https://bjooks.com/products/patch-tweak" target="_blank" rel="noopener">Patch &amp; Tweak (Book)</a></li>
+            <span class="gs-sep">•</span>
+            <li><a href="https://www.soundonsound.com/techniques/choosing-using-cables" target="_blank" rel="noopener">Wiring a Home Studio</a></li>
           </ul>
         </div>
       </details>
