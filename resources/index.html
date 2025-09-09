@@ -211,4 +211,183 @@
             </li>
             <li class="item" data-cat="samples" data-text="efm pack 2 noise beds risers ambience transitions">
               <a href="https://signalnotes.efm.plus" target="_blank" rel="noopener">EFM Pack #2 — Noise beds & risers</a>
-              <div class="meta">Layerable ambience & transitions <s
+              <div class="meta">Layerable ambience & transitions <span class="tagpill">samples</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tools -->
+        <div class="card group" data-section="tools">
+          <h2 id="tools" class="anchor">Tools</h2>
+          <ul class="list">
+            <li class="item" data-cat="tools" data-text="reaper daw speed stability">
+              <a href="https://www.reaper.fm/" target="_blank" rel="noopener">REAPER</a>
+              <div class="meta">DAW I reach for when I need speed/stability <span class="tagpill">software</span></div>
+            </li>
+            <li class="item" data-cat="tools" data-text="valhalla dsp reverbs delays">
+              <a href="https://valhalladsp.com/" target="_blank" rel="noopener">Valhalla DSP</a>
+              <div class="meta">Reverbs/delays that just work <span class="tagpill">fx</span></div>
+            </li>
+            <li class="item" data-cat="tools" data-text="audacity editor quick cuts batch jobs">
+              <a href="https://www.audacityteam.org/" target="_blank" rel="noopener">Audacity</a>
+              <div class="meta">Swiss-army editor for quick cuts & batch jobs <span class="tagpill">utility</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Hardware -->
+        <div class="card group" data-section="hardware">
+          <h2 id="hardware" class="anchor">Favorite gear</h2>
+          <ul class="list">
+            <li class="item" data-cat="hardware" data-text="elektron octatrack performance sampler scenes crossfader">
+              <a href="#" target="_blank" rel="noopener">Elektron Octatrack</a>
+              <div class="meta">Performance sampler • Scenes, crossfader, mangling <span class="tagpill">hardware</span></div>
+            </li>
+            <li class="item" data-cat="hardware" data-text="yamaha dx100 fm synthesis small keyboard">
+              <a href="#" target="_blank" rel="noopener">Yamaha DX100</a>
+              <div class="meta">Tiny FM box with big personality <span class="tagpill">hardware</span></div>
+            </li>
+            <li class="item" data-cat="hardware" data-text="allen heath mixwizard mixer routing musical eq">
+              <a href="#" target="_blank" rel="noopener">Allen & Heath MixWizard</a>
+              <div class="meta">Hands-on routing, musical EQ <span class="tagpill">mixer</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Reading / Links -->
+        <div class="card group" data-section="reading" style="grid-column: 1 / -1;">
+          <h2 id="reading" class="anchor">Reading & links</h2>
+          <ul class="list">
+            <li class="item" data-cat="reading" data-text="musicdsp audio dsp algorithms notes">
+              <a href="https://www.musicdsp.org/en/latest/" target="_blank" rel="noopener">MusicDSP</a>
+              <div class="meta">Algorithms & notes on audio DSP <span class="tagpill">reading</span></div>
+            </li>
+            <li class="item" data-cat="reading" data-text="ccrma stanford research resources">
+              <a href="https://ccrma.stanford.edu/" target="_blank" rel="noopener">CCRMA</a>
+              <div class="meta">Research & resources from Stanford CCRMA <span class="tagpill">reading</span></div>
+            </li>
+            <li class="item" data-cat="reading" data-text="valhalla blog reverb delay deep dives">
+              <a href="https://valhalladsp.com/blog/" target="_blank" rel="noopener">Valhalla Blog</a>
+              <div class="meta">Deep dives on reverb/delay design <span class="tagpill">reading</span></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div id="empty" class="empty hidden">No results. Try a different filter or search.</div>
+    </main>
+
+    <footer>
+      © <span id="year"></span> EFM.
+      <br/>
+      <span style="color:var(--muted); font-size:12px; display:inline-block; margin-top:6px;">
+        💬 Do you have tips, suggestions, or something interesting to share?<br/>
+        Get in touch: <a href="mailto:notes@efm.plus" style="color:var(--fg);">notes@efm.plus</a>
+      </span>
+    </footer>
+  </div>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const ALLOWED = ["", "guides", "samples", "tools", "hardware", "reading"];
+    const pills   = Array.from(document.querySelectorAll('.pill'));
+    const groups  = Array.from(document.querySelectorAll('.card.group'));
+    const search  = document.getElementById('search');
+    const empty   = document.getElementById('empty');
+    const tocLinks = Array.from(document.querySelectorAll('.toc a'));
+
+    const getParam = (k, fb) => {
+      const v = new URLSearchParams(location.search).get(k);
+      return (v === null || v === undefined) ? fb : v;
+    };
+    const setParams = (obj) => {
+      const u = new URL(location);
+      Object.entries(obj).forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
+      history.replaceState(null, "", u);
+    };
+    const norm = (s) => (s || "").toLowerCase();
+
+    function apply(cat, q) {
+      const query = norm(q);
+      let anyShown = false;
+
+      pills.forEach(p => p.classList.toggle('is-active', (p.dataset.cat || '') === cat));
+      tocLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${cat}`));
+
+      groups.forEach(section => {
+        const sectionType = section.getAttribute('data-section') || '';
+        const items = Array.from(section.querySelectorAll('.item'));
+        let visible = 0;
+        items.forEach(item => {
+          const itemCat = item.getAttribute('data-cat') || '';
+          const text = norm(item.getAttribute('data-text')) + " " + norm(item.textContent);
+          const show = (!cat || itemCat === cat || sectionType === cat) && (!query || text.includes(query));
+          item.classList.toggle('hidden', !show);
+          if (show) visible++;
+        });
+        section.classList.toggle('hidden', visible === 0);
+        if (visible) anyShown = true;
+      });
+
+      empty.classList.toggle('hidden', anyShown);
+    }
+
+    // Pills: filter + (if a cat) scroll to the heading
+    pills.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat || '';
+        const q = search.value.trim();
+        apply(cat, q);
+        setParams({ cat, q });
+        if (cat) document.getElementById(cat)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // TOC: sync filter with section
+    tocLinks.forEach(a => {
+      a.addEventListener('click', () => {
+        const id = a.getAttribute('href')?.slice(1) || '';
+        requestAnimationFrame(() => {
+          const pill = document.querySelector(`.pill[data-cat="${id}"]`) || document.querySelector('.pill[data-cat=""]');
+          pill?.click();
+        });
+      });
+    });
+
+    // Search (debounced)
+    let t = null;
+    search.addEventListener('input', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const cat = document.querySelector('.pill.is-active')?.dataset.cat || '';
+        const q = search.value.trim();
+        apply(cat, q);
+        setParams({ cat, q });
+      }, 120);
+    });
+
+    // Init from URL
+    const initCat = ALLOWED.includes(getParam("cat", "")) ? getParam("cat", "") : "";
+    const initQ   = getParam("q", "");
+    search.value = initQ;
+    apply(initCat, initQ);
+    setParams({ cat: initCat, q: initQ });
+
+    // Remember Getting Started open/closed
+    (function(){
+      const key = 'efm:getting-started:open';
+      const el = document.getElementById('gs-details');
+      if (!el) return;
+      try {
+        const saved = localStorage.getItem(key);
+        if (saved === '0') el.removeAttribute('open');
+        el.addEventListener('toggle', () => {
+          localStorage.setItem(key, el.open ? '1' : '0');
+        });
+      } catch(_) { /* ignore storage errors */ }
+    })();
+  </script>
+</body>
+</html>
